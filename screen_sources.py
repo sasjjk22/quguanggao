@@ -183,6 +183,94 @@ def write_builtin_kotlin(sub_obj: dict):
         f.write("\n".join(lines))
 
 
+def build_tvbox_json(clean_sites: list) -> dict:
+    tvbox_sites = []
+    for s in clean_sites:
+        api = s.get("api", "")
+        api_lower = api.lower()
+        site_type = 0 if ("/at/xml" in api_lower or api_lower.endswith("xml") or api_lower.endswith("xml/")) else 1
+        tvbox_sites.append({
+            "key": s["id"],
+            "name": s["name"],
+            "type": site_type,
+            "api": api,
+            "searchable": 1,
+            "quickSearch": 1,
+            "filterable": 1,
+        })
+
+    return {
+        "spider": "",
+        "wallpaper": "",
+        "lives": [],
+        "sites": tvbox_sites,
+        "parses": [],
+        "flags": [
+            "youku", "qq", "iqiyi", "qiyi", "letv", "sohu",
+            "tudou", "pptv", "mgtv", "imgo", "bilibili", "m1905"
+        ],
+        "rules": [
+            {
+                "name": "暴风广告",
+                "hosts": ["bfzy", "bfbfvip", "bfengbf", "fengbao"],
+                "regex": [
+                    "#EXT-X-DISCONTINUITY\\r*\\n*#EXTINF:3,[\\s\\S]*?#EXT-X-DISCONTINUITY",
+                    "#EXTINF.*?\\s+.*?adjump.*?\\.ts",
+                    "#EXTINF.*?\\s+.*?1o.*?\\.ts\\s+"
+                ]
+            },
+            {
+                "name": "樱花广告",
+                "hosts": ["wgslsw.com", "apiyhzy"],
+                "regex": [
+                    "#EXT-X-DISCONTINUITY\\r*\\n*#EXTINF:.*?\\r*\\n*.*?\\r*\\n*#EXT-X-DISCONTINUITY"
+                ]
+            },
+            {
+                "name": "量子广告",
+                "hosts": ["vip.lz", "hd.lz", ".cdnlz", "v.cdnlz"],
+                "regex": [
+                    "#EXT-X-DISCONTINUITY\\r*\\n*#EXTINF:6\\.433333,[\\s\\S]*?#EXT-X-DISCONTINUITY",
+                    "#EXTINF.*?\\s+.*?1o.*?\\.ts\\s+",
+                    "18.5333",
+                    "19.52"
+                ]
+            },
+            {
+                "name": "非凡广告",
+                "hosts": ["vip.ffzy", "hd.ffzy", "ffzy"],
+                "regex": [
+                    "#EXT-X-DISCONTINUITY\\r*\\n*#EXTINF:6\\.666667,[\\s\\S]*?#EXT-X-DISCONTINUITY",
+                    "#EXT-X-DISCONTINUITY\\r*\\n*#EXTINF:6\\.600000,[\\s\\S]*?#EXT-X-DISCONTINUITY",
+                    "#EXTINF.*?\\s+.*?1o.*?\\.ts\\s+",
+                    "25.0666",
+                    "25.08",
+                    "25.1"
+                ]
+            },
+            {
+                "name": "索尼广告",
+                "hosts": ["suonizy", "qrssv.com"],
+                "regex": [
+                    "#EXT-X-DISCONTINUITY\\r*\\n*#EXTINF:7\\.680000,[\\s\\S]*?#EXT-X-DISCONTINUITY",
+                    "15.1666",
+                    "15.2666"
+                ]
+            },
+            {
+                "name": "优质广告",
+                "hosts": ["yzzy", "playback"],
+                "regex": ["16.63", "18.66", "17.66", "19.13"]
+            },
+            {
+                "name": "快看广告",
+                "hosts": ["kuaikan", "vip.kuaikan"],
+                "regex": ["20.123", "20.167"]
+            }
+        ]
+    }
+
+
 def main():
     _, index_raw = http_get(OFFICIAL_SUB_URL, timeout=15)
     index_data = json.loads(index_raw)
@@ -274,8 +362,11 @@ def main():
     with open("my_cat_sources.json", "w", encoding="utf-8") as f:
         json.dump(sub_obj, f, ensure_ascii=False, indent=2)
 
+    with open("my_sources.json", "w", encoding="utf-8") as f:
+        json.dump(build_tvbox_json(clean_sites), f, ensure_ascii=False, indent=2)
+
     write_builtin_kotlin(sub_obj)
-    print(f"完成！体检 {len(results)} 个源，收入 {len(clean_sites)} 个并写入 BuiltinSources.kt")
+    print(f"完成！体检 {len(results)} 个源，收入 {len(clean_sites)} 个到 my_cat_sources.json 与 my_sources.json")
 
 
 if __name__ == "__main__":
