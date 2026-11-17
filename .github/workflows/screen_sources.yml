@@ -27,6 +27,6 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add my_cat_sources.json sources_report.md src/main/kotlin/BuiltinSources.kt
-          git diff --cached --quiet || git commit -m "chore: update screened sources and builtin kotlin"
+          git add my_cat_sources.json my_sources.json sources_report.md src/main/kotlin/BuiltinSources.kt
+          git diff --cached --quiet || git commit -m "chore: update cat and tvbox subscriptions"
           git push
