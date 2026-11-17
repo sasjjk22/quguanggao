@@ -23,11 +23,12 @@ import javax.xml.parsers.DocumentBuilderFactory
 class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
 
     companion object {
-        // 默认优先走国内可达的 jsDelivr CDN，并会在代码中自动故障切换多条加速线路
+        // 可把此处换成你自己的单文件订阅:
+        // "https://fastly.jsdelivr.net/gh/你的GitHub用户名/quguanggao@main/my_cat_sources.json"
         private const val DEFAULT_SUB_URL =
             "https://fastly.jsdelivr.net/gh/Jason-wam/Cat-Maven-2023@main/const/index.main.json"
         private const val PREF_SUB_URL_KEY = "sub_url_v3"
-        private const val PREF_CACHE_SITES_KEY = "cached_sites_json_v3"
+        private const val PREF_CACHE_SITES_KEY = "cached_sites_json_v4"
         private const val DEFAULT_UA =
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
     }
@@ -91,8 +92,8 @@ class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
     private var cachedSites: List<MacSiteConfig>? = null
 
     private val subUrlPref = object : TextEditPreference(
-        title = "订阅地址（国内 CDN 加速）",
-        summary = "默认使用 fastly.jsdelivr.net 国内加速并自动容灾切换 7 条线路",
+        title = "订阅地址（支持 my_cat_sources.json 单文件）",
+        summary = "填入你的单文件订阅链接，自动支持 7 条国内加速线路切换",
         hint = DEFAULT_SUB_URL
     ) {
         override fun getText(): String = context.getString(PREF_SUB_URL_KEY, DEFAULT_SUB_URL)
@@ -101,7 +102,21 @@ class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
             context.putString(PREF_SUB_URL_KEY, text.trim().ifEmpty { DEFAULT_SUB_URL })
             cachedSites = null
             context.remove(PREF_CACHE_SITES_KEY)
-            context.showToast("订阅已重置，下次搜索将重新拉取全站")
+            context.showToast("订阅已更新，下次搜索将重新加载站点")
+            refreshUserViews()
+        }
+    }
+
+    private val blockedSitesPref = object : TextEditPreference(
+        title = "屏蔽站点关键词",
+        summary = "不想看到的站点名用逗号隔开（如：西瓜,淘片），保存后自动过滤",
+        hint = "例如: 西瓜"
+    ) {
+        override fun getText(): String = context.getString("blocked_sites", "")
+
+        override fun onTextChanged(text: String) {
+            context.putString("blocked_sites", text.trim())
+            context.showToast("屏蔽列表已保存")
             refreshUserViews()
         }
     }
@@ -121,7 +136,7 @@ class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
 
     private val adModePref = object : TextEditPreference(
         title = "去广告模式（1=开启 / 0=关闭）",
-        summary = "1：智能过滤异常域/路径/突变切片；0：关闭去广告",
+        summary = "1：智能过滤异常域及2~8段短插播；0：关闭去广告",
         hint = "1"
     ) {
         override fun getText(): String = context.getString("ad_mode", "1")
@@ -145,9 +160,9 @@ class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
     init {
         id = "cat_adfree_box"
         name = "去广告聚合盒子"
-        versionCode = 3
+        versionCode = 4
         versionName = "1.0.3"
-        description = "国内CDN多线拉取官方订阅中的 Mac 资源站（西瓜、果脯、淘片、U酷等），统一执行 M3U8 切片去广告。"
+        description = "支持纯净单文件订阅 my_cat_sources.json 与官方多线拉取，自动过滤普通插播切片广告并支持站点屏蔽。"
     }
 
     override fun getFaviconUrl(): String = "https://caiji.xgzyapi.com/favicon.ico"
@@ -159,7 +174,7 @@ class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
     override fun isSupportHomeRecommends(): Boolean = false
 
     override fun getPreferences(): List<BasePreference> {
-        return listOf(subUrlPref, customRegexPref, adModePref, debugLogPref)
+        return listOf(subUrlPref, blockedSitesPref, customRegexPref, adModePref, debugLogPref)
     }
 
     override fun getHomeRecommends(
@@ -510,9 +525,22 @@ class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
         ).distinct()
     }
 
+    private fun applyBlockedFilter(list: List<MacSiteConfig>): List<MacSiteConfig> {
+        val blockedKeywords = blockedSitesPref.getText()
+            .split(",", "，", "\n")
+            .map { it.trim() }
+            .filter { it.isNotEmpty() }
+        if (blockedKeywords.isEmpty()) return list
+        return list.filterNot { site ->
+            blockedKeywords.any { kw ->
+                site.name.contains(kw, ignoreCase = true) || site.id.equals(kw, true)
+            }
+        }
+    }
+
     @Synchronized
     private fun loadMacSites(): List<MacSiteConfig> {
-        cachedSites?.let { if (it.isNotEmpty()) return it }
+        cachedSites?.let { if (it.isNotEmpty()) return applyBlockedFilter(it) }
 
         val subUrl = subUrlPref.getText()
         val fetched = runCatching { fetchSitesFromSubscription(subUrl) }.getOrNull()
@@ -526,37 +554,47 @@ class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
             restored?.toMutableList() ?: mutableListOf()
         }
 
-        if (baseList.none { it.id == "xgzyapi" }) {
-            baseList.add(0, defaultXgzySite())
+        if (baseList.isEmpty()) {
+            baseList.add(defaultXgzySite())
         }
 
         if (!fetched.isNullOrEmpty()) {
             runCatching { context.putString(PREF_CACHE_SITES_KEY, serializeSites(baseList)) }
         }
         cachedSites = baseList
-        return baseList
+        return applyBlockedFilter(baseList)
     }
 
     private fun fetchSitesFromSubscription(subUrl: String): List<MacSiteConfig> {
         val candidates = buildMirrorCandidates(subUrl)
         var workingSubUrl: String? = null
-        var list: JSONArray? = null
+        var rootObj: JSONObject? = null
 
         for (candidate in candidates) {
             val subText = httpGet(candidate, mapOf("User-Agent" to DEFAULT_UA), timeoutMs = 6000)
             if (!subText.isNullOrBlank()) {
-                val parsedArr = runCatching { JSONObject(subText).optJSONArray("list") }.getOrNull()
-                if (parsedArr != null && parsedArr.length() > 0) {
+                val parsed = runCatching { JSONObject(subText) }.getOrNull()
+                val hasSites = (parsed?.optJSONArray("sites")?.length() ?: 0) > 0
+                val hasList = (parsed?.optJSONArray("list")?.length() ?: 0) > 0
+                if (hasSites || hasList) {
                     workingSubUrl = candidate
-                    list = parsedArr
+                    rootObj = parsed
                     break
                 }
             }
         }
 
-        if (workingSubUrl == null || list == null) return emptyList()
+        if (workingSubUrl == null || rootObj == null) return emptyList()
         context.putString("last_sub_source", workingSubUrl)
 
+        val inlineSites = rootObj.optJSONArray("sites")
+        if (inlineSites != null && inlineSites.length() > 0) {
+            return (0 until inlineSites.length()).mapNotNull { i ->
+                inlineSites.optJSONObject(i)?.let { parseMacSiteJson(it) }
+            }
+        }
+
+        val list = rootObj.optJSONArray("list") ?: return emptyList()
         val baseDir = workingSubUrl.substringBeforeLast("/")
         val macUrls = mutableListOf<String>()
         for (i in 0 until list.length()) {
