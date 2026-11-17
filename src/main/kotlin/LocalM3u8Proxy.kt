@@ -1,5 +1,3 @@
-package com.myplugin
-
 import java.io.BufferedReader
 import java.io.InputStreamReader
 import java.net.InetAddress
@@ -40,9 +38,6 @@ object LocalM3u8Proxy {
         }, "CatM3u8Proxy").apply { isDaemon = true }.start()
     }
 
-    /**
-     * 注册一段清洗后的 M3U8 内容，返回可交给播放器直接播放的本地 URL
-     */
     fun register(m3u8Content: String): String {
         ensureStarted()
         val id = UUID.randomUUID().toString().replace("-", "")
@@ -63,7 +58,6 @@ object LocalM3u8Proxy {
             val reader = BufferedReader(InputStreamReader(s.getInputStream(), Charsets.UTF_8))
             val requestLine = reader.readLine() ?: return
 
-            // 读完客户端请求头，避免连接重置
             while (true) {
                 val line = reader.readLine() ?: break
                 if (line.isEmpty()) break
