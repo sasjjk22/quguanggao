@@ -23,8 +23,11 @@ import javax.xml.parsers.DocumentBuilderFactory
 class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
 
     companion object {
+        // 默认优先走国内可达的 jsDelivr CDN，并会在代码中自动故障切换多条加速线路
         private const val DEFAULT_SUB_URL =
-            "https://raw.githubusercontent.com/Jason-wam/Cat-Maven-2023/refs/heads/main/const/index.main.json"
+            "https://fastly.jsdelivr.net/gh/Jason-wam/Cat-Maven-2023@main/const/index.main.json"
+        private const val PREF_SUB_URL_KEY = "sub_url_v3"
+        private const val PREF_CACHE_SITES_KEY = "cached_sites_json_v3"
         private const val DEFAULT_UA =
             "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36"
     }
@@ -60,6 +63,7 @@ class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
     )
 
     private val ioExecutor = Executors.newCachedThreadPool()
+    private val siteFetchExecutor = Executors.newFixedThreadPool(6)
 
     private val mainHandlerObj: Any? by lazy {
         runCatching {
@@ -87,17 +91,17 @@ class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
     private var cachedSites: List<MacSiteConfig>? = null
 
     private val subUrlPref = object : TextEditPreference(
-        title = "订阅地址",
-        summary = "配置包含 Mac 源的 JSON 订阅地址（默认官方订阅，支持镜像链接）",
+        title = "订阅地址（国内 CDN 加速）",
+        summary = "默认使用 fastly.jsdelivr.net 国内加速并自动容灾切换 7 条线路",
         hint = DEFAULT_SUB_URL
     ) {
-        override fun getText(): String = context.getString("sub_url", DEFAULT_SUB_URL)
+        override fun getText(): String = context.getString(PREF_SUB_URL_KEY, DEFAULT_SUB_URL)
 
         override fun onTextChanged(text: String) {
-            context.putString("sub_url", text.trim().ifEmpty { DEFAULT_SUB_URL })
+            context.putString(PREF_SUB_URL_KEY, text.trim().ifEmpty { DEFAULT_SUB_URL })
             cachedSites = null
-            context.remove("cached_sites_json")
-            context.showToast("订阅地址已更新，下次加载生效")
+            context.remove(PREF_CACHE_SITES_KEY)
+            context.showToast("订阅已重置，下次搜索将重新拉取全站")
             refreshUserViews()
         }
     }
@@ -116,8 +120,8 @@ class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
     }
 
     private val adModePref = object : TextEditPreference(
-        title = "去广告模式（1=强力开启 / 0=关闭）",
-        summary = "1：强力过滤 Discontinuity 插播及突变切片；0：关闭去广告",
+        title = "去广告模式（1=开启 / 0=关闭）",
+        summary = "1：智能过滤异常域/路径/突变切片；0：关闭去广告",
         hint = "1"
     ) {
         override fun getText(): String = context.getString("ad_mode", "1")
@@ -125,16 +129,25 @@ class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
         override fun onTextChanged(text: String) {
             val mode = if (text.trim() == "0") "0" else "1"
             context.putString("ad_mode", mode)
-            context.showToast(if (mode == "1") "已开启强力去广告" else "已关闭去广告")
+            context.showToast(if (mode == "1") "已开启去广告" else "已关闭去广告")
         }
+    }
+
+    private val debugLogPref = object : TextEditPreference(
+        title = "最近播放诊断日志（可复制）",
+        summary = "查看已加载站点数量、去广告状态及 10:00 附近切片结构",
+        hint = "暂无播放记录"
+    ) {
+        override fun getText(): String = context.getString("last_debug_log", "暂无播放记录")
+        override fun onTextChanged(text: String) {}
     }
 
     init {
         id = "cat_adfree_box"
         name = "去广告聚合盒子"
-        versionCode = 2
-        versionName = "1.0.1"
-        description = "自动拉取官方订阅中的 Mac 资源站（西瓜、果脯、淘片、U酷等），统一执行 M3U8 切片去广告后播放。"
+        versionCode = 3
+        versionName = "1.0.3"
+        description = "国内CDN多线拉取官方订阅中的 Mac 资源站（西瓜、果脯、淘片、U酷等），统一执行 M3U8 切片去广告。"
     }
 
     override fun getFaviconUrl(): String = "https://caiji.xgzyapi.com/favicon.ico"
@@ -146,7 +159,7 @@ class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
     override fun isSupportHomeRecommends(): Boolean = false
 
     override fun getPreferences(): List<BasePreference> {
-        return listOf(subUrlPref, customRegexPref, adModePref)
+        return listOf(subUrlPref, customRegexPref, adModePref, debugLogPref)
     }
 
     override fun getHomeRecommends(
@@ -245,7 +258,7 @@ class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
                         try {
                             val sep = if (site.api.contains("?")) "&" else "?"
                             val apiUrl = "${site.api}${sep}ac=videolist&wd=$encodedKw&pg=$page"
-                            val raw = httpGet(apiUrl, site.headers, timeoutMs = 6000)
+                            val raw = httpGet(apiUrl, site.headers, timeoutMs = 8000)
                             if (!raw.isNullOrBlank()) {
                                 val parsed = parseVodResponse(raw)
                                 if (parsed.hasMore) anyHasMore = true
@@ -270,7 +283,7 @@ class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
                     }
                 }
 
-                latch.await(7, TimeUnit.SECONDS)
+                latch.await(10, TimeUnit.SECONDS)
                 val res = BaseSearchResultEntity(hasMore = anyHasMore, value = merged.toList())
                 runOnMainThread { onSuccess(res) }
             }.onFailure { err ->
@@ -327,7 +340,12 @@ class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
                     cover = item.pic
                     description = buildString {
                         if (item.actor.isNotBlank()) append("主演：${item.actor}\n")
-                        append(item.des.replace(Regex("<[^>]+>"), "").trim())
+                        append(
+                            item.des
+                                .replace("&nbsp;", " ")
+                                .replace(Regex("<[^>]+>"), "")
+                                .trim()
+                        )
                     }
                     browserUrl = apiUrl
                     url = apiUrl
@@ -394,9 +412,8 @@ class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
                 "" to rawPayload
             }
 
-            val siteHeaders = runCatching {
-                loadMacSites().firstOrNull { it.id == siteId }?.headers
-            }.getOrNull() ?: emptyMap()
+            val sites = loadMacSites()
+            val siteHeaders = sites.firstOrNull { it.id == siteId }?.headers ?: emptyMap()
 
             val playHeaders = hashMapOf<String, String>()
             playHeaders["User-Agent"] = siteHeaders["User-Agent"] ?: DEFAULT_UA
@@ -405,12 +422,33 @@ class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
             val rule = buildCurrentAdRule()
             val shouldClean = rule.enabled && actualUrl.contains(".m3u8", ignoreCase = true)
 
+            val loadedSummary = "已加载站点(${sites.size}个): " + sites.joinToString(",") { it.name.removeSuffix("资源网") }
+
             val finalPlayUrl = if (shouldClean) {
-                runCatching {
-                    val cleaned = M3u8AdCleaner.fetchAndClean(actualUrl, playHeaders, rule)
-                    if (cleaned != null) LocalM3u8Proxy.register(cleaned) else actualUrl
-                }.getOrDefault(actualUrl)
+                val (report, status) = M3u8AdCleaner.fetchAndCleanWithReport(actualUrl, playHeaders, rule)
+                val logText = buildString {
+                    appendLine(loadedSummary)
+                    appendLine("订阅来源: ${context.getString("last_sub_source", "缓存/默认")}")
+                    appendLine("原始地址: $actualUrl")
+                    appendLine("状态: $status")
+                    if (report != null) {
+                        appendLine("最终M3U8: ${report.finalUrl}")
+                        appendLine(report.sampleAround600s.ifBlank { "(无)" })
+                    }
+                }
+                context.putString("last_debug_log", logText)
+                runOnMainThread { context.showToast("去广告: $status") }
+
+                if (report != null) {
+                    LocalM3u8Proxy.register(report.cleanedContent)
+                } else {
+                    actualUrl
+                }
             } else {
+                context.putString(
+                    "last_debug_log",
+                    "$loadedSummary\n未清洗(mode=${adModePref.getText()}, url=$actualUrl)"
+                )
                 actualUrl
             }
 
@@ -447,8 +485,29 @@ class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
             urlBlacklistRegex = defaultRegex + extraRegex,
             enableDiscontinuityFilter = true,
             maxAdGroupDurationSec = 45.0,
-            aggressiveDiscontinuityDrop = true
+            aggressiveDiscontinuityDrop = false
         )
+    }
+
+    private fun buildMirrorCandidates(subUrl: String): List<String> {
+        val rawMatch = Regex("""^https?://raw\.githubusercontent\.com/([^/]+)/([^/]+)/(?:refs/heads/)?([^/]+)/(.+)$""")
+            .find(subUrl)
+        val jsdMatch = Regex("""^https?://[^/]*jsdelivr\.net/gh/([^/]+)/([^/@]+)@([^/]+)/(.+)$""")
+            .find(subUrl)
+
+        val match = rawMatch ?: jsdMatch ?: return listOf(subUrl)
+        val (owner, repo, branch, path) = match.destructured
+
+        return listOf(
+            subUrl,
+            "https://fastly.jsdelivr.net/gh/$owner/$repo@$branch/$path",
+            "https://gcore.jsdelivr.net/gh/$owner/$repo@$branch/$path",
+            "https://testingcf.jsdelivr.net/gh/$owner/$repo@$branch/$path",
+            "https://raw.kkgithub.com/$owner/$repo/$branch/$path",
+            "https://ghproxy.net/https://raw.githubusercontent.com/$owner/$repo/$branch/$path",
+            "https://hk.gh-proxy.org/https://raw.githubusercontent.com/$owner/$repo/$branch/$path",
+            "https://raw.githubusercontent.com/$owner/$repo/$branch/$path"
+        ).distinct()
     }
 
     @Synchronized
@@ -457,32 +516,48 @@ class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
 
         val subUrl = subUrlPref.getText()
         val fetched = runCatching { fetchSitesFromSubscription(subUrl) }.getOrNull()
+        val baseList = if (!fetched.isNullOrEmpty()) {
+            fetched.toMutableList()
+        } else {
+            val diskCached = context.getString(PREF_CACHE_SITES_KEY, "")
+            val restored = if (diskCached.isNotBlank()) {
+                runCatching { deserializeSites(diskCached) }.getOrNull()
+            } else null
+            restored?.toMutableList() ?: mutableListOf()
+        }
+
+        if (baseList.none { it.id == "xgzyapi" }) {
+            baseList.add(0, defaultXgzySite())
+        }
+
         if (!fetched.isNullOrEmpty()) {
-            cachedSites = fetched
-            runCatching { context.putString("cached_sites_json", serializeSites(fetched)) }
-            return fetched
+            runCatching { context.putString(PREF_CACHE_SITES_KEY, serializeSites(baseList)) }
         }
-
-        val diskCached = context.getString("cached_sites_json", "")
-        if (diskCached.isNotBlank()) {
-            val restored = runCatching { deserializeSites(diskCached) }.getOrNull()
-            if (!restored.isNullOrEmpty()) {
-                cachedSites = restored
-                return restored
-            }
-        }
-
-        val fallback = listOf(defaultXgzySite())
-        cachedSites = fallback
-        return fallback
+        cachedSites = baseList
+        return baseList
     }
 
     private fun fetchSitesFromSubscription(subUrl: String): List<MacSiteConfig> {
-        val subText = httpGet(subUrl, mapOf("User-Agent" to DEFAULT_UA), timeoutMs = 6000) ?: return emptyList()
-        val root = JSONObject(subText)
-        val list = root.optJSONArray("list") ?: return emptyList()
-        val baseDir = subUrl.substringBeforeLast("/")
+        val candidates = buildMirrorCandidates(subUrl)
+        var workingSubUrl: String? = null
+        var list: JSONArray? = null
 
+        for (candidate in candidates) {
+            val subText = httpGet(candidate, mapOf("User-Agent" to DEFAULT_UA), timeoutMs = 6000)
+            if (!subText.isNullOrBlank()) {
+                val parsedArr = runCatching { JSONObject(subText).optJSONArray("list") }.getOrNull()
+                if (parsedArr != null && parsedArr.length() > 0) {
+                    workingSubUrl = candidate
+                    list = parsedArr
+                    break
+                }
+            }
+        }
+
+        if (workingSubUrl == null || list == null) return emptyList()
+        context.putString("last_sub_source", workingSubUrl)
+
+        val baseDir = workingSubUrl.substringBeforeLast("/")
         val macUrls = mutableListOf<String>()
         for (i in 0 until list.length()) {
             val item = list.optJSONObject(i) ?: continue
@@ -502,9 +577,9 @@ class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
         val result = java.util.Collections.synchronizedList(mutableListOf<MacSiteConfig>())
         val latch = CountDownLatch(macUrls.size)
         for (cfgUrl in macUrls) {
-            ioExecutor.execute {
+            siteFetchExecutor.execute {
                 try {
-                    val cfgText = httpGet(cfgUrl, mapOf("User-Agent" to DEFAULT_UA), timeoutMs = 6000)
+                    val cfgText = httpGet(cfgUrl, mapOf("User-Agent" to DEFAULT_UA), timeoutMs = 8000)
                     if (!cfgText.isNullOrBlank()) {
                         parseMacSiteJson(JSONObject(cfgText))?.let { result.add(it) }
                     }
@@ -514,7 +589,7 @@ class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
                 }
             }
         }
-        latch.await(8, TimeUnit.SECONDS)
+        latch.await(20, TimeUnit.SECONDS)
         return result.toList()
     }
 
