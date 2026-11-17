@@ -1,0 +1,5666 @@
+{
+  "name": "我的纯净去广告单文件订阅",
+  "sites": [
+    {
+      "id": "guangsuapi",
+      "name": "光速资源",
+      "api": "https://api.guangsuapi.com/api.php/provide/vod/",
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.7103.48 Safari/537.36"
+      },
+      "classEntities": [
+        {
+          "url": "3",
+          "title": "综艺",
+          "weight": 3
+        },
+        {
+          "url": "4",
+          "title": "动漫",
+          "weight": 4
+        },
+        {
+          "url": "6",
+          "title": "动作片",
+          "weight": 5
+        },
+        {
+          "url": "7",
+          "title": "喜剧片",
+          "weight": 6
+        },
+        {
+          "url": "8",
+          "title": "爱情片",
+          "weight": 7
+        },
+        {
+          "url": "9",
+          "title": "科幻片",
+          "weight": 8
+        },
+        {
+          "url": "10",
+          "title": "剧情片",
+          "weight": 9
+        },
+        {
+          "url": "11",
+          "title": "恐怖片",
+          "weight": 10
+        },
+        {
+          "url": "12",
+          "title": "战争片",
+          "weight": 11
+        },
+        {
+          "url": "13",
+          "title": "大陆剧",
+          "weight": 12
+        },
+        {
+          "url": "14",
+          "title": "欧美剧",
+          "weight": 13
+        },
+        {
+          "url": "15",
+          "title": "韩剧",
+          "weight": 14
+        },
+        {
+          "url": "16",
+          "title": "日剧",
+          "weight": 15
+        },
+        {
+          "url": "17",
+          "title": "港剧",
+          "weight": 16
+        },
+        {
+          "url": "18",
+          "title": "台剧",
+          "weight": 17
+        },
+        {
+          "url": "19",
+          "title": "泰剧",
+          "weight": 18
+        },
+        {
+          "url": "20",
+          "title": "动漫电影",
+          "weight": 19
+        },
+        {
+          "url": "21",
+          "title": "纪录片",
+          "weight": 20
+        },
+        {
+          "url": "23",
+          "title": "泰剧",
+          "weight": 21
+        },
+        {
+          "url": "24",
+          "title": "海外剧",
+          "weight": 22
+        }
+      ],
+      "dtNodesEntities": [
+        {
+          "id": "gsm3u8",
+          "name": "在线播放",
+          "weight": 0,
+          "videoType": "Direct",
+          "canDownload": true
+        },
+        {
+          "id": "gsyun",
+          "name": "云播放",
+          "weight": 1,
+          "videoType": "Sniff"
+        }
+      ]
+    },
+    {
+      "id": "huyaapi",
+      "name": "虎牙资源网",
+      "api": "https://www.huyaapi.com/api.php/provide/vod/",
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.7103.48 Safari/537.36"
+      },
+      "classEntities": [
+        {
+          "url": "30",
+          "title": "短剧",
+          "weight": 1
+        },
+        {
+          "url": "3",
+          "title": "欧美剧",
+          "weight": 2
+        },
+        {
+          "url": "4",
+          "title": "香港剧",
+          "weight": 3
+        },
+        {
+          "url": "5",
+          "title": "韩剧",
+          "weight": 4
+        },
+        {
+          "url": "6",
+          "title": "日剧",
+          "weight": 5
+        },
+        {
+          "url": "7",
+          "title": "马泰剧",
+          "weight": 6
+        },
+        {
+          "url": "9",
+          "title": "动作片",
+          "weight": 8
+        },
+        {
+          "url": "10",
+          "title": "爱情片",
+          "weight": 9
+        },
+        {
+          "url": "11",
+          "title": "喜剧片",
+          "weight": 10
+        },
+        {
+          "url": "12",
+          "title": "科幻片",
+          "weight": 11
+        },
+        {
+          "url": "13",
+          "title": "恐怖片",
+          "weight": 12
+        },
+        {
+          "url": "14",
+          "title": "剧情片",
+          "weight": 13
+        },
+        {
+          "url": "15",
+          "title": "战争片",
+          "weight": 14
+        },
+        {
+          "url": "16",
+          "title": "记录片",
+          "weight": 15
+        },
+        {
+          "url": "20",
+          "title": "内地剧",
+          "weight": 17
+        },
+        {
+          "url": "23",
+          "title": "动画片",
+          "weight": 18
+        },
+        {
+          "url": "24",
+          "title": "中国动漫",
+          "weight": 19
+        },
+        {
+          "url": "25",
+          "title": "日本动漫",
+          "weight": 20
+        },
+        {
+          "url": "26",
+          "title": "欧美动漫",
+          "weight": 21
+        },
+        {
+          "url": "27",
+          "title": "综艺",
+          "weight": 22
+        },
+        {
+          "url": "28",
+          "title": "台湾剧",
+          "weight": 23
+        },
+        {
+          "url": "31",
+          "title": "预告片",
+          "weight": 26
+        },
+        {
+          "url": "32",
+          "title": "足球",
+          "weight": 27
+        },
+        {
+          "url": "33",
+          "title": "篮球",
+          "weight": 28
+        },
+        {
+          "url": "34",
+          "title": "台球",
+          "weight": 29
+        },
+        {
+          "url": "35",
+          "title": "其他赛事",
+          "weight": 30
+        }
+      ],
+      "dtNodesEntities": [
+        {
+          "id": "hym3u8",
+          "name": "在线播放",
+          "weight": 0,
+          "videoType": "Direct",
+          "canDownload": true
+        },
+        {
+          "id": "hyyun",
+          "name": "云播放",
+          "weight": 1,
+          "videoType": "Sniff"
+        }
+      ]
+    },
+    {
+      "id": "jszyapi",
+      "name": "极速资源网",
+      "api": "https://jszyapi.com/api.php/provide/vod/",
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.7103.48 Safari/537.36"
+      },
+      "classEntities": [
+        {
+          "url": "38",
+          "title": "短剧",
+          "weight": 1
+        },
+        {
+          "url": "3",
+          "title": "欧美剧",
+          "weight": 2
+        },
+        {
+          "url": "4",
+          "title": "香港剧",
+          "weight": 3
+        },
+        {
+          "url": "5",
+          "title": "韩剧",
+          "weight": 4
+        },
+        {
+          "url": "6",
+          "title": "日剧",
+          "weight": 5
+        },
+        {
+          "url": "7",
+          "title": "马泰剧",
+          "weight": 6
+        },
+        {
+          "url": "9",
+          "title": "动作片",
+          "weight": 8
+        },
+        {
+          "url": "10",
+          "title": "爱情片",
+          "weight": 9
+        },
+        {
+          "url": "11",
+          "title": "喜剧片",
+          "weight": 10
+        },
+        {
+          "url": "12",
+          "title": "科幻片",
+          "weight": 11
+        },
+        {
+          "url": "13",
+          "title": "恐怖片",
+          "weight": 12
+        },
+        {
+          "url": "14",
+          "title": "剧情片",
+          "weight": 13
+        },
+        {
+          "url": "15",
+          "title": "战争片",
+          "weight": 14
+        },
+        {
+          "url": "16",
+          "title": "记录片",
+          "weight": 15
+        },
+        {
+          "url": "20",
+          "title": "内地剧",
+          "weight": 17
+        },
+        {
+          "url": "23",
+          "title": "动画片",
+          "weight": 18
+        },
+        {
+          "url": "24",
+          "title": "中国动漫",
+          "weight": 19
+        },
+        {
+          "url": "25",
+          "title": "日本动漫",
+          "weight": 20
+        },
+        {
+          "url": "26",
+          "title": "欧美动漫",
+          "weight": 21
+        },
+        {
+          "url": "28",
+          "title": "台湾剧",
+          "weight": 23
+        },
+        {
+          "url": "30",
+          "title": "大陆综艺",
+          "weight": 25
+        },
+        {
+          "url": "31",
+          "title": "日韩综艺",
+          "weight": 26
+        },
+        {
+          "url": "32",
+          "title": "港台综艺",
+          "weight": 27
+        },
+        {
+          "url": "33",
+          "title": "欧美综艺",
+          "weight": 28
+        },
+        {
+          "url": "34",
+          "title": "灾难片",
+          "weight": 29
+        },
+        {
+          "url": "35",
+          "title": "悬疑片",
+          "weight": 30
+        },
+        {
+          "url": "36",
+          "title": "犯罪片",
+          "weight": 31
+        },
+        {
+          "url": "37",
+          "title": "奇幻片",
+          "weight": 32
+        },
+        {
+          "url": "39",
+          "title": "预告片",
+          "weight": 34
+        },
+        {
+          "url": "40",
+          "title": "足球",
+          "weight": 35
+        },
+        {
+          "url": "41",
+          "title": "篮球",
+          "weight": 36
+        },
+        {
+          "url": "42",
+          "title": "台球",
+          "weight": 37
+        },
+        {
+          "url": "43",
+          "title": "其他赛事",
+          "weight": 38
+        }
+      ],
+      "dtNodesEntities": [
+        {
+          "id": "jsm3u8",
+          "name": "在线播放",
+          "weight": 0,
+          "videoType": "Direct",
+          "canDownload": true
+        },
+        {
+          "id": "jsyun",
+          "name": "云播放",
+          "weight": 1,
+          "videoType": "Sniff"
+        }
+      ]
+    },
+    {
+      "id": "jyzyapi",
+      "name": "金鹰资源网",
+      "api": "https://jyzyapi.com/provide/vod/",
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.7103.48 Safari/537.36"
+      },
+      "classEntities": [
+        {
+          "url": "30",
+          "title": "短剧",
+          "weight": 1
+        },
+        {
+          "url": "3",
+          "title": "欧美剧",
+          "weight": 2
+        },
+        {
+          "url": "4",
+          "title": "香港剧",
+          "weight": 3
+        },
+        {
+          "url": "5",
+          "title": "韩剧",
+          "weight": 4
+        },
+        {
+          "url": "6",
+          "title": "日剧",
+          "weight": 5
+        },
+        {
+          "url": "7",
+          "title": "马泰剧",
+          "weight": 6
+        },
+        {
+          "url": "9",
+          "title": "动作片",
+          "weight": 8
+        },
+        {
+          "url": "10",
+          "title": "爱情片",
+          "weight": 9
+        },
+        {
+          "url": "11",
+          "title": "喜剧片",
+          "weight": 10
+        },
+        {
+          "url": "12",
+          "title": "科幻片",
+          "weight": 11
+        },
+        {
+          "url": "13",
+          "title": "恐怖片",
+          "weight": 12
+        },
+        {
+          "url": "14",
+          "title": "剧情片",
+          "weight": 13
+        },
+        {
+          "url": "15",
+          "title": "战争片",
+          "weight": 14
+        },
+        {
+          "url": "16",
+          "title": "记录片",
+          "weight": 15
+        },
+        {
+          "url": "20",
+          "title": "内地剧",
+          "weight": 17
+        },
+        {
+          "url": "23",
+          "title": "动画片",
+          "weight": 18
+        },
+        {
+          "url": "24",
+          "title": "中国动漫",
+          "weight": 19
+        },
+        {
+          "url": "25",
+          "title": "日本动漫",
+          "weight": 20
+        },
+        {
+          "url": "26",
+          "title": "欧美动漫",
+          "weight": 21
+        },
+        {
+          "url": "27",
+          "title": "综艺",
+          "weight": 22
+        },
+        {
+          "url": "28",
+          "title": "台湾剧",
+          "weight": 23
+        },
+        {
+          "url": "31",
+          "title": "预告片",
+          "weight": 26
+        },
+        {
+          "url": "32",
+          "title": "足球",
+          "weight": 27
+        },
+        {
+          "url": "33",
+          "title": "篮球",
+          "weight": 28
+        },
+        {
+          "url": "34",
+          "title": "台球",
+          "weight": 29
+        },
+        {
+          "url": "35",
+          "title": "其他赛事",
+          "weight": 30
+        }
+      ],
+      "dtNodesEntities": [
+        {
+          "id": "jinyingm3u8",
+          "name": "在线播放",
+          "weight": 0,
+          "videoType": "Direct",
+          "canDownload": true
+        },
+        {
+          "id": "jinyingyun",
+          "name": "云播放",
+          "weight": 1,
+          "videoType": "Sniff"
+        }
+      ]
+    },
+    {
+      "id": "ikunzyapi",
+      "name": "爱坤资源",
+      "api": "https://ikunzyapi.com/api.php/provide/vod/",
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.7103.48 Safari/537.36"
+      },
+      "classEntities": [
+        {
+          "url": "6",
+          "title": "动作片",
+          "weight": 6
+        },
+        {
+          "url": "7",
+          "title": "喜剧片",
+          "weight": 7
+        },
+        {
+          "url": "8",
+          "title": "爱情片",
+          "weight": 8
+        },
+        {
+          "url": "9",
+          "title": "科幻片",
+          "weight": 9
+        },
+        {
+          "url": "10",
+          "title": "恐怖片",
+          "weight": 10
+        },
+        {
+          "url": "11",
+          "title": "剧情片",
+          "weight": 11
+        },
+        {
+          "url": "12",
+          "title": "战争片",
+          "weight": 12
+        },
+        {
+          "url": "13",
+          "title": "惊悚片",
+          "weight": 13
+        },
+        {
+          "url": "14",
+          "title": "家庭片",
+          "weight": 14
+        },
+        {
+          "url": "15",
+          "title": "古装片",
+          "weight": 15
+        },
+        {
+          "url": "16",
+          "title": "历史片",
+          "weight": 16
+        },
+        {
+          "url": "17",
+          "title": "悬疑片",
+          "weight": 17
+        },
+        {
+          "url": "18",
+          "title": "犯罪片",
+          "weight": 18
+        },
+        {
+          "url": "19",
+          "title": "灾难片",
+          "weight": 19
+        },
+        {
+          "url": "20",
+          "title": "记录片",
+          "weight": 20
+        },
+        {
+          "url": "21",
+          "title": "奇幻片",
+          "weight": 21
+        },
+        {
+          "url": "22",
+          "title": "动画片",
+          "weight": 22
+        },
+        {
+          "url": "23",
+          "title": "国产剧",
+          "weight": 23
+        },
+        {
+          "url": "24",
+          "title": "香港剧",
+          "weight": 24
+        },
+        {
+          "url": "25",
+          "title": "韩国剧",
+          "weight": 25
+        },
+        {
+          "url": "26",
+          "title": "欧美剧",
+          "weight": 26
+        },
+        {
+          "url": "28",
+          "title": "日本剧",
+          "weight": 27
+        },
+        {
+          "url": "29",
+          "title": "台湾剧",
+          "weight": 28
+        },
+        {
+          "url": "30",
+          "title": "泰国剧",
+          "weight": 29
+        },
+        {
+          "url": "31",
+          "title": "海外剧",
+          "weight": 30
+        },
+        {
+          "url": "32",
+          "title": "大陆综艺",
+          "weight": 31
+        },
+        {
+          "url": "33",
+          "title": "日韩综艺",
+          "weight": 32
+        },
+        {
+          "url": "34",
+          "title": "港台综艺",
+          "weight": 33
+        },
+        {
+          "url": "35",
+          "title": "欧美综艺",
+          "weight": 34
+        },
+        {
+          "url": "36",
+          "title": "国产动漫",
+          "weight": 35
+        },
+        {
+          "url": "37",
+          "title": "日本动漫",
+          "weight": 36
+        },
+        {
+          "url": "38",
+          "title": "欧美动漫",
+          "weight": 37
+        },
+        {
+          "url": "39",
+          "title": "海外动漫",
+          "weight": 38
+        }
+      ],
+      "dtNodesEntities": [
+        {
+          "id": "ikm3u8",
+          "name": "在线播放",
+          "weight": 0,
+          "videoType": "Direct",
+          "canDownload": true
+        }
+      ]
+    },
+    {
+      "id": "hhzyapi",
+      "name": "豪华资源网",
+      "api": "https://hhzyapi.com/api.php/provide/vod/",
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.7103.48 Safari/537.36"
+      },
+      "classEntities": [
+        {
+          "url": "38",
+          "title": "短剧",
+          "weight": 1
+        },
+        {
+          "url": "3",
+          "title": "欧美剧",
+          "weight": 2
+        },
+        {
+          "url": "4",
+          "title": "香港剧",
+          "weight": 3
+        },
+        {
+          "url": "5",
+          "title": "韩剧",
+          "weight": 4
+        },
+        {
+          "url": "6",
+          "title": "日剧",
+          "weight": 5
+        },
+        {
+          "url": "7",
+          "title": "马泰剧",
+          "weight": 6
+        },
+        {
+          "url": "9",
+          "title": "动作片",
+          "weight": 8
+        },
+        {
+          "url": "10",
+          "title": "爱情片",
+          "weight": 9
+        },
+        {
+          "url": "11",
+          "title": "喜剧片",
+          "weight": 10
+        },
+        {
+          "url": "12",
+          "title": "科幻片",
+          "weight": 11
+        },
+        {
+          "url": "13",
+          "title": "恐怖片",
+          "weight": 12
+        },
+        {
+          "url": "14",
+          "title": "剧情片",
+          "weight": 13
+        },
+        {
+          "url": "15",
+          "title": "战争片",
+          "weight": 14
+        },
+        {
+          "url": "16",
+          "title": "记录片",
+          "weight": 15
+        },
+        {
+          "url": "20",
+          "title": "内地剧",
+          "weight": 17
+        },
+        {
+          "url": "23",
+          "title": "动画片",
+          "weight": 18
+        },
+        {
+          "url": "24",
+          "title": "中国动漫",
+          "weight": 19
+        },
+        {
+          "url": "25",
+          "title": "日本动漫",
+          "weight": 20
+        },
+        {
+          "url": "26",
+          "title": "欧美动漫",
+          "weight": 21
+        },
+        {
+          "url": "28",
+          "title": "台湾剧",
+          "weight": 23
+        },
+        {
+          "url": "30",
+          "title": "大陆综艺",
+          "weight": 24
+        },
+        {
+          "url": "31",
+          "title": "日韩综艺",
+          "weight": 25
+        },
+        {
+          "url": "32",
+          "title": "港台综艺",
+          "weight": 26
+        },
+        {
+          "url": "33",
+          "title": "欧美综艺",
+          "weight": 27
+        },
+        {
+          "url": "34",
+          "title": "灾难片",
+          "weight": 28
+        },
+        {
+          "url": "35",
+          "title": "悬疑片",
+          "weight": 29
+        },
+        {
+          "url": "36",
+          "title": "犯罪片",
+          "weight": 30
+        },
+        {
+          "url": "37",
+          "title": "奇幻片",
+          "weight": 31
+        },
+        {
+          "url": "39",
+          "title": "预告片",
+          "weight": 33
+        },
+        {
+          "url": "41",
+          "title": "足球",
+          "weight": 35
+        },
+        {
+          "url": "42",
+          "title": "篮球",
+          "weight": 36
+        },
+        {
+          "url": "43",
+          "title": "台球",
+          "weight": 37
+        },
+        {
+          "url": "44",
+          "title": "其他赛事",
+          "weight": 38
+        }
+      ],
+      "dtNodesEntities": [
+        {
+          "id": "hhm3u8",
+          "name": "在线播放",
+          "weight": 0,
+          "videoType": "Direct",
+          "canDownload": true
+        },
+        {
+          "id": "hhyun",
+          "name": "云播放",
+          "weight": 1,
+          "videoType": "Sniff"
+        }
+      ]
+    },
+    {
+      "id": "hongniuzy2",
+      "name": "红牛资源网",
+      "api": "https://www.hongniuzy2.com/api.php/provide/vod/",
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.7103.48 Safari/537.36"
+      },
+      "classEntities": [
+        {
+          "url": "30",
+          "title": "短剧",
+          "weight": 1
+        },
+        {
+          "url": "3",
+          "title": "综艺",
+          "weight": 2
+        },
+        {
+          "url": "4",
+          "title": "动漫",
+          "weight": 3
+        },
+        {
+          "url": "5",
+          "title": "动作片",
+          "weight": 4
+        },
+        {
+          "url": "6",
+          "title": "喜剧片",
+          "weight": 5
+        },
+        {
+          "url": "7",
+          "title": "爱情片",
+          "weight": 6
+        },
+        {
+          "url": "8",
+          "title": "科幻片",
+          "weight": 7
+        },
+        {
+          "url": "9",
+          "title": "恐怖片",
+          "weight": 8
+        },
+        {
+          "url": "10",
+          "title": "剧情片",
+          "weight": 9
+        },
+        {
+          "url": "11",
+          "title": "战争片",
+          "weight": 10
+        },
+        {
+          "url": "12",
+          "title": "国产剧",
+          "weight": 11
+        },
+        {
+          "url": "13",
+          "title": "港澳剧",
+          "weight": 12
+        },
+        {
+          "url": "14",
+          "title": "日剧",
+          "weight": 13
+        },
+        {
+          "url": "15",
+          "title": "欧美剧",
+          "weight": 14
+        },
+        {
+          "url": "16",
+          "title": "台湾剧",
+          "weight": 15
+        },
+        {
+          "url": "17",
+          "title": "泰剧",
+          "weight": 16
+        },
+        {
+          "url": "18",
+          "title": "韩剧",
+          "weight": 17
+        },
+        {
+          "url": "19",
+          "title": "纪录片",
+          "weight": 18
+        },
+        {
+          "url": "20",
+          "title": "动漫电影",
+          "weight": 19
+        },
+        {
+          "url": "31",
+          "title": "预告片",
+          "weight": 23
+        },
+        {
+          "url": "32",
+          "title": "足球",
+          "weight": 24
+        },
+        {
+          "url": "33",
+          "title": "篮球",
+          "weight": 25
+        },
+        {
+          "url": "34",
+          "title": "台球",
+          "weight": 26
+        },
+        {
+          "url": "35",
+          "title": "其他赛事",
+          "weight": 27
+        }
+      ],
+      "dtNodesEntities": [
+        {
+          "id": "hnm3u8",
+          "name": "在线播放",
+          "weight": 0,
+          "videoType": "Direct",
+          "canDownload": true
+        },
+        {
+          "id": "hnyun",
+          "name": "云播放",
+          "weight": 1,
+          "videoType": "Sniff"
+        }
+      ]
+    },
+    {
+      "id": "xinlangapi",
+      "name": "新浪资源",
+      "api": "https://api.xinlangapi.com/xinlangapi.php/provide/vod/",
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.7103.48 Safari/537.36"
+      },
+      "classEntities": [
+        {
+          "url": "24",
+          "title": "短剧",
+          "weight": 1
+        },
+        {
+          "url": "3",
+          "title": "动漫",
+          "weight": 4
+        },
+        {
+          "url": "4",
+          "title": "综艺",
+          "weight": 5
+        },
+        {
+          "url": "5",
+          "title": "纪录片",
+          "weight": 6
+        },
+        {
+          "url": "6",
+          "title": "动作片",
+          "weight": 7
+        },
+        {
+          "url": "7",
+          "title": "爱情片",
+          "weight": 8
+        },
+        {
+          "url": "8",
+          "title": "科幻片",
+          "weight": 9
+        },
+        {
+          "url": "9",
+          "title": "战争片",
+          "weight": 10
+        },
+        {
+          "url": "10",
+          "title": "剧情片",
+          "weight": 11
+        },
+        {
+          "url": "11",
+          "title": "恐怖片",
+          "weight": 12
+        },
+        {
+          "url": "12",
+          "title": "喜剧片",
+          "weight": 13
+        },
+        {
+          "url": "13",
+          "title": "大陆剧",
+          "weight": 14
+        },
+        {
+          "url": "14",
+          "title": "港澳剧",
+          "weight": 15
+        },
+        {
+          "url": "15",
+          "title": "台湾剧",
+          "weight": 16
+        },
+        {
+          "url": "16",
+          "title": "欧美剧",
+          "weight": 17
+        },
+        {
+          "url": "17",
+          "title": "动画片",
+          "weight": 18
+        },
+        {
+          "url": "18",
+          "title": "韩剧",
+          "weight": 19
+        },
+        {
+          "url": "20",
+          "title": "日剧",
+          "weight": 20
+        },
+        {
+          "url": "21",
+          "title": "泰剧",
+          "weight": 21
+        },
+        {
+          "url": "23",
+          "title": "体育",
+          "weight": 23
+        },
+        {
+          "url": "25",
+          "title": "预告片",
+          "weight": 24
+        },
+        {
+          "url": "26",
+          "title": "足球",
+          "weight": 25
+        },
+        {
+          "url": "27",
+          "title": "篮球",
+          "weight": 26
+        },
+        {
+          "url": "28",
+          "title": "台球",
+          "weight": 27
+        },
+        {
+          "url": "29",
+          "title": "其他赛事",
+          "weight": 28
+        }
+      ],
+      "dtNodesEntities": [
+        {
+          "id": "xlm3u8",
+          "name": "在线播放",
+          "weight": 0,
+          "videoType": "Direct",
+          "canDownload": true
+        },
+        {
+          "id": "xlyun",
+          "name": "云播放",
+          "weight": 1,
+          "videoType": "Sniff"
+        }
+      ]
+    },
+    {
+      "id": "360zy",
+      "name": "360资源",
+      "api": "https://360zy.com/api.php/provide/vod/",
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.7103.48 Safari/537.36"
+      },
+      "classEntities": [
+        {
+          "url": "46",
+          "title": "爽文短剧",
+          "weight": 1
+        },
+        {
+          "url": "6",
+          "title": "动作片",
+          "weight": 6
+        },
+        {
+          "url": "7",
+          "title": "喜剧片",
+          "weight": 7
+        },
+        {
+          "url": "8",
+          "title": "爱情片",
+          "weight": 8
+        },
+        {
+          "url": "9",
+          "title": "科幻片",
+          "weight": 9
+        },
+        {
+          "url": "10",
+          "title": "恐怖片",
+          "weight": 10
+        },
+        {
+          "url": "11",
+          "title": "剧情片",
+          "weight": 11
+        },
+        {
+          "url": "12",
+          "title": "战争片",
+          "weight": 12
+        },
+        {
+          "url": "13",
+          "title": "国产剧",
+          "weight": 13
+        },
+        {
+          "url": "14",
+          "title": "香港剧",
+          "weight": 14
+        },
+        {
+          "url": "15",
+          "title": "韩国剧",
+          "weight": 15
+        },
+        {
+          "url": "16",
+          "title": "欧美剧",
+          "weight": 16
+        },
+        {
+          "url": "17",
+          "title": "体育",
+          "weight": 17
+        },
+        {
+          "url": "18",
+          "title": "NBA",
+          "weight": 18
+        },
+        {
+          "url": "20",
+          "title": "惊悚片",
+          "weight": 19
+        },
+        {
+          "url": "24",
+          "title": "悬疑片",
+          "weight": 20
+        },
+        {
+          "url": "25",
+          "title": "犯罪片",
+          "weight": 21
+        },
+        {
+          "url": "26",
+          "title": "灾难片",
+          "weight": 22
+        },
+        {
+          "url": "27",
+          "title": "纪录片",
+          "weight": 23
+        },
+        {
+          "url": "28",
+          "title": "短片",
+          "weight": 24
+        },
+        {
+          "url": "29",
+          "title": "动画片",
+          "weight": 25
+        },
+        {
+          "url": "30",
+          "title": "台湾剧",
+          "weight": 26
+        },
+        {
+          "url": "31",
+          "title": "日本剧",
+          "weight": 27
+        },
+        {
+          "url": "32",
+          "title": "海外剧",
+          "weight": 28
+        },
+        {
+          "url": "33",
+          "title": "泰国剧",
+          "weight": 29
+        },
+        {
+          "url": "34",
+          "title": "大陆综艺",
+          "weight": 30
+        },
+        {
+          "url": "35",
+          "title": "港台综艺",
+          "weight": 31
+        },
+        {
+          "url": "36",
+          "title": "日韩综艺",
+          "weight": 32
+        },
+        {
+          "url": "37",
+          "title": "欧美综艺",
+          "weight": 33
+        },
+        {
+          "url": "38",
+          "title": "国产动漫",
+          "weight": 34
+        },
+        {
+          "url": "39",
+          "title": "欧美动漫",
+          "weight": 35
+        },
+        {
+          "url": "40",
+          "title": "日韩动漫",
+          "weight": 36
+        },
+        {
+          "url": "41",
+          "title": "足球",
+          "weight": 37
+        },
+        {
+          "url": "42",
+          "title": "篮球",
+          "weight": 38
+        },
+        {
+          "url": "43",
+          "title": "未分类",
+          "weight": 39
+        },
+        {
+          "url": "45",
+          "title": "西部片",
+          "weight": 40
+        },
+        {
+          "url": "47",
+          "title": "现代都市",
+          "weight": 41
+        },
+        {
+          "url": "48",
+          "title": "脑洞悬疑",
+          "weight": 42
+        },
+        {
+          "url": "49",
+          "title": "年代穿越",
+          "weight": 43
+        },
+        {
+          "url": "50",
+          "title": "古装仙侠",
+          "weight": 44
+        },
+        {
+          "url": "51",
+          "title": "反转爽剧",
+          "weight": 45
+        },
+        {
+          "url": "52",
+          "title": "女频恋爱",
+          "weight": 46
+        },
+        {
+          "url": "53",
+          "title": "成长逆袭",
+          "weight": 47
+        }
+      ],
+      "dtNodesEntities": [
+        {
+          "id": "360zy",
+          "name": "360播放",
+          "weight": 0,
+          "videoType": "Direct",
+          "canDownload": true
+        }
+      ]
+    },
+    {
+      "id": "apiyhzy",
+      "name": "樱花资源",
+      "api": "https://m3u8.apiyhzy.com/api.php/provide/vod/",
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.7103.48 Safari/537.36"
+      },
+      "classEntities": [
+        {
+          "url": "6",
+          "title": "动作片",
+          "weight": 4
+        },
+        {
+          "url": "7",
+          "title": "喜剧片",
+          "weight": 5
+        },
+        {
+          "url": "8",
+          "title": "爱情片",
+          "weight": 6
+        },
+        {
+          "url": "9",
+          "title": "科幻片",
+          "weight": 7
+        },
+        {
+          "url": "10",
+          "title": "恐怖片",
+          "weight": 8
+        },
+        {
+          "url": "11",
+          "title": "剧情片",
+          "weight": 9
+        },
+        {
+          "url": "12",
+          "title": "战争片",
+          "weight": 10
+        },
+        {
+          "url": "13",
+          "title": "国产剧",
+          "weight": 11
+        },
+        {
+          "url": "14",
+          "title": "香港剧",
+          "weight": 12
+        },
+        {
+          "url": "15",
+          "title": "台湾剧",
+          "weight": 13
+        },
+        {
+          "url": "16",
+          "title": "韩国剧",
+          "weight": 14
+        },
+        {
+          "url": "20",
+          "title": "犯罪片",
+          "weight": 15
+        },
+        {
+          "url": "21",
+          "title": "纪录片",
+          "weight": 16
+        },
+        {
+          "url": "22",
+          "title": "动画电影",
+          "weight": 17
+        },
+        {
+          "url": "23",
+          "title": "日本剧",
+          "weight": 18
+        },
+        {
+          "url": "24",
+          "title": "欧美剧",
+          "weight": 19
+        },
+        {
+          "url": "25",
+          "title": "海外剧",
+          "weight": 20
+        },
+        {
+          "url": "26",
+          "title": "大陆综艺",
+          "weight": 21
+        },
+        {
+          "url": "27",
+          "title": "日韩综艺",
+          "weight": 22
+        },
+        {
+          "url": "28",
+          "title": "港台综艺",
+          "weight": 23
+        },
+        {
+          "url": "29",
+          "title": "欧美综艺",
+          "weight": 24
+        },
+        {
+          "url": "30",
+          "title": "国产动漫",
+          "weight": 25
+        },
+        {
+          "url": "31",
+          "title": "日本动漫",
+          "weight": 26
+        },
+        {
+          "url": "32",
+          "title": "欧美动漫",
+          "weight": 27
+        },
+        {
+          "url": "33",
+          "title": "海外动漫",
+          "weight": 28
+        }
+      ],
+      "dtNodesEntities": [
+        {
+          "id": "yhm3u8",
+          "name": "在线播放",
+          "weight": 0,
+          "videoType": "Direct",
+          "canDownload": true
+        }
+      ]
+    },
+    {
+      "id": "bfzyapi",
+      "name": "暴风资源",
+      "api": "https://bfzyapi.com/api.php/provide/vod/",
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.7103.48 Safari/537.36"
+      },
+      "classEntities": [
+        {
+          "url": "20",
+          "title": "电影片",
+          "weight": 1
+        },
+        {
+          "url": "21",
+          "title": "动作片",
+          "weight": 2
+        },
+        {
+          "url": "22",
+          "title": "喜剧片",
+          "weight": 3
+        },
+        {
+          "url": "23",
+          "title": "恐怖片",
+          "weight": 4
+        },
+        {
+          "url": "24",
+          "title": "科幻片",
+          "weight": 5
+        },
+        {
+          "url": "25",
+          "title": "爱情片",
+          "weight": 6
+        },
+        {
+          "url": "26",
+          "title": "剧情片",
+          "weight": 7
+        },
+        {
+          "url": "27",
+          "title": "战争片",
+          "weight": 8
+        },
+        {
+          "url": "28",
+          "title": "纪录片",
+          "weight": 9
+        },
+        {
+          "url": "29",
+          "title": "理论片",
+          "weight": 10
+        },
+        {
+          "url": "30",
+          "title": "连续剧",
+          "weight": 11
+        },
+        {
+          "url": "31",
+          "title": "国产剧",
+          "weight": 12
+        },
+        {
+          "url": "32",
+          "title": "欧美剧",
+          "weight": 13
+        },
+        {
+          "url": "33",
+          "title": "香港剧",
+          "weight": 14
+        },
+        {
+          "url": "34",
+          "title": "韩国剧",
+          "weight": 15
+        },
+        {
+          "url": "35",
+          "title": "台湾剧",
+          "weight": 16
+        },
+        {
+          "url": "36",
+          "title": "日本剧",
+          "weight": 17
+        },
+        {
+          "url": "37",
+          "title": "海外剧",
+          "weight": 18
+        },
+        {
+          "url": "38",
+          "title": "泰国剧",
+          "weight": 19
+        },
+        {
+          "url": "39",
+          "title": "综艺片",
+          "weight": 20
+        },
+        {
+          "url": "40",
+          "title": "大陆综艺",
+          "weight": 21
+        },
+        {
+          "url": "41",
+          "title": "香港综艺",
+          "weight": 22
+        },
+        {
+          "url": "42",
+          "title": "台湾综艺",
+          "weight": 23
+        },
+        {
+          "url": "43",
+          "title": "韩国综艺",
+          "weight": 24
+        },
+        {
+          "url": "44",
+          "title": "日本综艺",
+          "weight": 25
+        },
+        {
+          "url": "45",
+          "title": "欧美综艺",
+          "weight": 26
+        },
+        {
+          "url": "46",
+          "title": "海外综艺",
+          "weight": 27
+        },
+        {
+          "url": "47",
+          "title": "港台综艺",
+          "weight": 28
+        },
+        {
+          "url": "48",
+          "title": "动漫片",
+          "weight": 29
+        },
+        {
+          "url": "49",
+          "title": "国产动漫",
+          "weight": 30
+        },
+        {
+          "url": "50",
+          "title": "日本动漫",
+          "weight": 31
+        },
+        {
+          "url": "51",
+          "title": "欧美动漫",
+          "weight": 32
+        },
+        {
+          "url": "52",
+          "title": "海外动漫",
+          "weight": 33
+        },
+        {
+          "url": "53",
+          "title": "其他",
+          "weight": 34
+        }
+      ],
+      "dtNodesEntities": [
+        {
+          "id": "bfzym3u8",
+          "name": "在线播放",
+          "weight": 0,
+          "videoType": "Direct",
+          "canDownload": true
+        }
+      ]
+    },
+    {
+      "id": "wolongzy",
+      "name": "卧龙资源",
+      "api": "https://collect.wolongzy.cc/api.php/provide/vod/",
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.7103.48 Safari/537.36"
+      },
+      "classEntities": [
+        {
+          "url": "54",
+          "title": "短剧",
+          "weight": 1
+        },
+        {
+          "url": "5",
+          "title": "动作片",
+          "weight": 6
+        },
+        {
+          "url": "6",
+          "title": "喜剧片",
+          "weight": 7
+        },
+        {
+          "url": "7",
+          "title": "爱情片",
+          "weight": 8
+        },
+        {
+          "url": "8",
+          "title": "科幻片",
+          "weight": 9
+        },
+        {
+          "url": "9",
+          "title": "恐怖片",
+          "weight": 10
+        },
+        {
+          "url": "10",
+          "title": "剧情片",
+          "weight": 11
+        },
+        {
+          "url": "11",
+          "title": "战争片",
+          "weight": 12
+        },
+        {
+          "url": "12",
+          "title": "国产剧",
+          "weight": 13
+        },
+        {
+          "url": "13",
+          "title": "香港剧",
+          "weight": 14
+        },
+        {
+          "url": "14",
+          "title": "韩国剧",
+          "weight": 15
+        },
+        {
+          "url": "15",
+          "title": "欧美剧",
+          "weight": 16
+        },
+        {
+          "url": "16",
+          "title": "台湾剧",
+          "weight": 17
+        },
+        {
+          "url": "17",
+          "title": "日本剧",
+          "weight": 18
+        },
+        {
+          "url": "18",
+          "title": "海外剧",
+          "weight": 19
+        },
+        {
+          "url": "22",
+          "title": "记录片",
+          "weight": 20
+        },
+        {
+          "url": "23",
+          "title": "短片",
+          "weight": 21
+        },
+        {
+          "url": "24",
+          "title": "动画片",
+          "weight": 22
+        },
+        {
+          "url": "25",
+          "title": "国产动漫",
+          "weight": 23
+        },
+        {
+          "url": "26",
+          "title": "欧美动漫",
+          "weight": 24
+        },
+        {
+          "url": "27",
+          "title": "日本动漫",
+          "weight": 25
+        },
+        {
+          "url": "30",
+          "title": "港台综艺",
+          "weight": 26
+        },
+        {
+          "url": "31",
+          "title": "韩国综艺",
+          "weight": 27
+        },
+        {
+          "url": "32",
+          "title": "大陆综艺",
+          "weight": 28
+        },
+        {
+          "url": "33",
+          "title": "泰国剧",
+          "weight": 29
+        },
+        {
+          "url": "37",
+          "title": "欧美综艺",
+          "weight": 30
+        },
+        {
+          "url": "38",
+          "title": "电影解说",
+          "weight": 31
+        },
+        {
+          "url": "39",
+          "title": "惊悚片",
+          "weight": 32
+        },
+        {
+          "url": "42",
+          "title": "家庭片",
+          "weight": 33
+        },
+        {
+          "url": "43",
+          "title": "古装片",
+          "weight": 34
+        },
+        {
+          "url": "44",
+          "title": "历史片",
+          "weight": 35
+        },
+        {
+          "url": "45",
+          "title": "悬疑片",
+          "weight": 36
+        },
+        {
+          "url": "46",
+          "title": "犯罪片",
+          "weight": 37
+        },
+        {
+          "url": "48",
+          "title": "篮球",
+          "weight": 38
+        },
+        {
+          "url": "51",
+          "title": "足球",
+          "weight": 40
+        }
+      ],
+      "dtNodesEntities": [
+        {
+          "id": "wolong",
+          "name": "卧龙播放",
+          "weight": 0,
+          "videoType": "Sniff",
+          "canDownload": true
+        }
+      ]
+    },
+    {
+      "id": "gfzywapi",
+      "name": "果脯资源网",
+      "api": "https://api.gfzyw.com/api.php/provide/vod/",
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.7103.48 Safari/537.36"
+      },
+      "classEntities": [
+        {
+          "url": "5",
+          "title": "短剧",
+          "weight": 1
+        },
+        {
+          "url": "6",
+          "title": "动作片",
+          "weight": 2
+        },
+        {
+          "url": "7",
+          "title": "喜剧片",
+          "weight": 3
+        },
+        {
+          "url": "8",
+          "title": "爱情片",
+          "weight": 4
+        },
+        {
+          "url": "9",
+          "title": "科幻片",
+          "weight": 5
+        },
+        {
+          "url": "10",
+          "title": "恐怖片",
+          "weight": 6
+        },
+        {
+          "url": "11",
+          "title": "战争片",
+          "weight": 7
+        },
+        {
+          "url": "12",
+          "title": "剧情片",
+          "weight": 8
+        },
+        {
+          "url": "13",
+          "title": "动画片",
+          "weight": 9
+        },
+        {
+          "url": "14",
+          "title": "国产剧",
+          "weight": 10
+        },
+        {
+          "url": "15",
+          "title": "港台剧",
+          "weight": 11
+        },
+        {
+          "url": "16",
+          "title": "日韩剧",
+          "weight": 12
+        },
+        {
+          "url": "17",
+          "title": "欧美剧",
+          "weight": 13
+        },
+        {
+          "url": "18",
+          "title": "泰国剧",
+          "weight": 14
+        },
+        {
+          "url": "20",
+          "title": "海外剧",
+          "weight": 15
+        },
+        {
+          "url": "21",
+          "title": "国产动漫",
+          "weight": 16
+        },
+        {
+          "url": "22",
+          "title": "港台动漫",
+          "weight": 17
+        },
+        {
+          "url": "23",
+          "title": "日韩动漫",
+          "weight": 18
+        },
+        {
+          "url": "24",
+          "title": "海外动漫",
+          "weight": 19
+        },
+        {
+          "url": "25",
+          "title": "国产综艺",
+          "weight": 20
+        },
+        {
+          "url": "26",
+          "title": "港台综艺",
+          "weight": 21
+        },
+        {
+          "url": "27",
+          "title": "日韩综艺",
+          "weight": 22
+        },
+        {
+          "url": "28",
+          "title": "欧美综艺",
+          "weight": 23
+        }
+      ],
+      "dtNodesEntities": [
+        {
+          "id": "gfm3u8",
+          "name": "在线播放",
+          "weight": 0,
+          "videoType": "Direct",
+          "canDownload": true
+        }
+      ]
+    },
+    {
+      "id": "dbzy5",
+      "name": "豆瓣资源",
+      "api": "https://caiji.dbzy5.com/api.php/provide/vod/",
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.7103.48 Safari/537.36"
+      },
+      "classEntities": [
+        {
+          "url": "37",
+          "title": "短剧大全",
+          "weight": 1
+        },
+        {
+          "url": "2",
+          "title": "连续剧",
+          "weight": 2
+        },
+        {
+          "url": "3",
+          "title": "综艺片",
+          "weight": 3
+        },
+        {
+          "url": "4",
+          "title": "动漫",
+          "weight": 4
+        },
+        {
+          "url": "5",
+          "title": "纪录片",
+          "weight": 5
+        },
+        {
+          "url": "6",
+          "title": "动作片",
+          "weight": 6
+        },
+        {
+          "url": "7",
+          "title": "爱情片",
+          "weight": 7
+        },
+        {
+          "url": "8",
+          "title": "喜剧片",
+          "weight": 8
+        },
+        {
+          "url": "9",
+          "title": "科幻片",
+          "weight": 9
+        },
+        {
+          "url": "10",
+          "title": "恐怖片",
+          "weight": 10
+        },
+        {
+          "url": "11",
+          "title": "剧情片",
+          "weight": 11
+        },
+        {
+          "url": "12",
+          "title": "战争片",
+          "weight": 12
+        },
+        {
+          "url": "13",
+          "title": "国产剧",
+          "weight": 13
+        },
+        {
+          "url": "14",
+          "title": "香港剧",
+          "weight": 14
+        },
+        {
+          "url": "15",
+          "title": "欧美剧",
+          "weight": 15
+        },
+        {
+          "url": "16",
+          "title": "韩剧",
+          "weight": 16
+        },
+        {
+          "url": "20",
+          "title": "动漫电影",
+          "weight": 17
+        },
+        {
+          "url": "21",
+          "title": "泰国剧",
+          "weight": 18
+        },
+        {
+          "url": "22",
+          "title": "日本剧",
+          "weight": 19
+        },
+        {
+          "url": "23",
+          "title": "台湾剧",
+          "weight": 20
+        },
+        {
+          "url": "24",
+          "title": "海外剧",
+          "weight": 21
+        },
+        {
+          "url": "25",
+          "title": "大陆综艺",
+          "weight": 22
+        },
+        {
+          "url": "26",
+          "title": "日韩综艺",
+          "weight": 23
+        },
+        {
+          "url": "27",
+          "title": "港台综艺",
+          "weight": 24
+        },
+        {
+          "url": "28",
+          "title": "欧美综艺",
+          "weight": 25
+        },
+        {
+          "url": "30",
+          "title": "国产动漫",
+          "weight": 26
+        },
+        {
+          "url": "31",
+          "title": "日本动漫",
+          "weight": 27
+        },
+        {
+          "url": "32",
+          "title": "欧美动漫",
+          "weight": 28
+        },
+        {
+          "url": "33",
+          "title": "海外动漫",
+          "weight": 29
+        },
+        {
+          "url": "36",
+          "title": "体育赛事",
+          "weight": 30
+        },
+        {
+          "url": "38",
+          "title": "篮球",
+          "weight": 31
+        },
+        {
+          "url": "39",
+          "title": "足球",
+          "weight": 32
+        },
+        {
+          "url": "40",
+          "title": "网球",
+          "weight": 33
+        },
+        {
+          "url": "41",
+          "title": "斯诺克",
+          "weight": 34
+        },
+        {
+          "url": "43",
+          "title": "重生民国",
+          "weight": 35
+        },
+        {
+          "url": "44",
+          "title": "穿越现代",
+          "weight": 36
+        },
+        {
+          "url": "45",
+          "title": "反转爽剧",
+          "weight": 37
+        },
+        {
+          "url": "46",
+          "title": "言情总裁",
+          "weight": 38
+        },
+        {
+          "url": "47",
+          "title": "现代都市",
+          "weight": 39
+        },
+        {
+          "url": "48",
+          "title": "古装仙侠",
+          "weight": 40
+        },
+        {
+          "url": "49",
+          "title": "悬疑烧脑",
+          "weight": 41
+        },
+        {
+          "url": "50",
+          "title": "惊悚片",
+          "weight": 42
+        }
+      ],
+      "dtNodesEntities": [
+        {
+          "id": "dbm3u8",
+          "name": "在线播放",
+          "weight": 0,
+          "videoType": "Direct",
+          "canDownload": true
+        },
+        {
+          "id": "dbyun",
+          "name": "云播放",
+          "weight": 1,
+          "videoType": "Sniff"
+        }
+      ]
+    },
+    {
+      "id": "tyyszyapi",
+      "name": "天涯资源网",
+      "api": "https://tyyszyapi.com/api.php/provide/vod/",
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.7103.48 Safari/537.36"
+      },
+      "classEntities": [
+        {
+          "url": "6",
+          "title": "动作片",
+          "weight": 5
+        },
+        {
+          "url": "7",
+          "title": "喜剧片",
+          "weight": 6
+        },
+        {
+          "url": "8",
+          "title": "爱情片",
+          "weight": 7
+        },
+        {
+          "url": "9",
+          "title": "科幻片",
+          "weight": 8
+        },
+        {
+          "url": "10",
+          "title": "恐怖片",
+          "weight": 9
+        },
+        {
+          "url": "11",
+          "title": "剧情片",
+          "weight": 10
+        },
+        {
+          "url": "12",
+          "title": "战争片",
+          "weight": 11
+        },
+        {
+          "url": "13",
+          "title": "国产剧",
+          "weight": 12
+        },
+        {
+          "url": "14",
+          "title": "欧美剧",
+          "weight": 13
+        },
+        {
+          "url": "15",
+          "title": "韩国剧",
+          "weight": 14
+        },
+        {
+          "url": "16",
+          "title": "日本剧",
+          "weight": 15
+        },
+        {
+          "url": "17",
+          "title": "港台剧",
+          "weight": 16
+        },
+        {
+          "url": "18",
+          "title": "台湾剧",
+          "weight": 17
+        },
+        {
+          "url": "19",
+          "title": "泰国剧",
+          "weight": 18
+        },
+        {
+          "url": "20",
+          "title": "纪录片",
+          "weight": 19
+        },
+        {
+          "url": "23",
+          "title": "海外剧",
+          "weight": 20
+        },
+        {
+          "url": "25",
+          "title": "大陆综艺",
+          "weight": 21
+        },
+        {
+          "url": "26",
+          "title": "日韩综艺",
+          "weight": 22
+        },
+        {
+          "url": "27",
+          "title": "港台综艺",
+          "weight": 23
+        },
+        {
+          "url": "28",
+          "title": "欧美综艺",
+          "weight": 24
+        },
+        {
+          "url": "29",
+          "title": "国产动漫",
+          "weight": 25
+        },
+        {
+          "url": "30",
+          "title": "日韩动漫",
+          "weight": 26
+        },
+        {
+          "url": "31",
+          "title": "欧美动漫",
+          "weight": 27
+        },
+        {
+          "url": "39",
+          "title": "动画片",
+          "weight": 28
+        },
+        {
+          "url": "44",
+          "title": "港台动漫",
+          "weight": 29
+        },
+        {
+          "url": "54",
+          "title": "短剧",
+          "weight": 38
+        },
+        {
+          "url": "64",
+          "title": "女频恋爱",
+          "weight": 48
+        },
+        {
+          "url": "65",
+          "title": "反转爽剧",
+          "weight": 49
+        },
+        {
+          "url": "66",
+          "title": "古装仙侠",
+          "weight": 50
+        },
+        {
+          "url": "67",
+          "title": "年代穿越",
+          "weight": 51
+        },
+        {
+          "url": "68",
+          "title": "脑洞悬疑",
+          "weight": 52
+        },
+        {
+          "url": "69",
+          "title": "现代都市",
+          "weight": 53
+        }
+      ],
+      "dtNodesEntities": [
+        {
+          "id": "tym3u8",
+          "name": "天涯M3U8",
+          "weight": 0,
+          "videoType": "Direct",
+          "canDownload": true
+        }
+      ]
+    },
+    {
+      "id": "wujinapi",
+      "name": "无尽资源网",
+      "api": "https://api.wujinapi.me/api.php/provide/vod/",
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.7103.48 Safari/537.36"
+      },
+      "classEntities": [
+        {
+          "url": "62",
+          "title": "短剧",
+          "weight": 1
+        },
+        {
+          "url": "6",
+          "title": "动作片",
+          "weight": 2
+        },
+        {
+          "url": "7",
+          "title": "喜剧片",
+          "weight": 3
+        },
+        {
+          "url": "9",
+          "title": "科幻片",
+          "weight": 4
+        },
+        {
+          "url": "10",
+          "title": "恐怖片",
+          "weight": 5
+        },
+        {
+          "url": "11",
+          "title": "剧情片",
+          "weight": 6
+        },
+        {
+          "url": "12",
+          "title": "战争片",
+          "weight": 7
+        },
+        {
+          "url": "13",
+          "title": "国产剧",
+          "weight": 8
+        },
+        {
+          "url": "14",
+          "title": "香港剧",
+          "weight": 9
+        },
+        {
+          "url": "15",
+          "title": "台湾剧",
+          "weight": 10
+        },
+        {
+          "url": "24",
+          "title": "海外剧",
+          "weight": 11
+        },
+        {
+          "url": "26",
+          "title": "日韩综艺",
+          "weight": 12
+        },
+        {
+          "url": "30",
+          "title": "日韩动漫",
+          "weight": 13
+        },
+        {
+          "url": "31",
+          "title": "欧美动漫",
+          "weight": 14
+        },
+        {
+          "url": "33",
+          "title": "动画片",
+          "weight": 15
+        },
+        {
+          "url": "34",
+          "title": "犯罪片",
+          "weight": 16
+        },
+        {
+          "url": "36",
+          "title": "邵氏电影",
+          "weight": 17
+        },
+        {
+          "url": "37",
+          "title": "泰剧",
+          "weight": 18
+        },
+        {
+          "url": "42",
+          "title": "港台动漫",
+          "weight": 19
+        },
+        {
+          "url": "43",
+          "title": "海外动漫",
+          "weight": 20
+        },
+        {
+          "url": "44",
+          "title": "演唱会",
+          "weight": 21
+        },
+        {
+          "url": "45",
+          "title": "足球",
+          "weight": 22
+        },
+        {
+          "url": "46",
+          "title": "预告片",
+          "weight": 23
+        },
+        {
+          "url": "53",
+          "title": "有声动漫",
+          "weight": 24
+        },
+        {
+          "url": "56",
+          "title": "脑洞悬疑",
+          "weight": 25
+        },
+        {
+          "url": "61",
+          "title": "Netflix自制剧",
+          "weight": 26
+        },
+        {
+          "url": "63",
+          "title": "漫剧",
+          "weight": 27
+        },
+        {
+          "url": "64",
+          "title": "儿童儿歌",
+          "weight": 28
+        }
+      ],
+      "dtNodesEntities": [
+        {
+          "id": "wjm3u8",
+          "name": "在线播放",
+          "weight": 0,
+          "videoType": "Direct",
+          "canDownload": true
+        }
+      ]
+    },
+    {
+      "id": "kuaichezy",
+      "name": "快车资源",
+      "api": "https://caiji.kuaichezy.org/api.php/provide/vod/",
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.7103.48 Safari/537.36"
+      },
+      "classEntities": [
+        {
+          "url": "6",
+          "title": "动作片",
+          "weight": 5
+        },
+        {
+          "url": "7",
+          "title": "喜剧片",
+          "weight": 6
+        },
+        {
+          "url": "8",
+          "title": "爱情片",
+          "weight": 7
+        },
+        {
+          "url": "9",
+          "title": "科幻片",
+          "weight": 8
+        },
+        {
+          "url": "10",
+          "title": "恐怖片",
+          "weight": 9
+        },
+        {
+          "url": "11",
+          "title": "剧情片",
+          "weight": 10
+        },
+        {
+          "url": "12",
+          "title": "战争片",
+          "weight": 11
+        },
+        {
+          "url": "13",
+          "title": "国产剧",
+          "weight": 12
+        },
+        {
+          "url": "14",
+          "title": "欧美剧",
+          "weight": 13
+        },
+        {
+          "url": "15",
+          "title": "韩剧",
+          "weight": 14
+        },
+        {
+          "url": "16",
+          "title": "日剧",
+          "weight": 15
+        },
+        {
+          "url": "17",
+          "title": "港剧",
+          "weight": 16
+        },
+        {
+          "url": "18",
+          "title": "台剧",
+          "weight": 17
+        },
+        {
+          "url": "19",
+          "title": "泰剧",
+          "weight": 18
+        },
+        {
+          "url": "20",
+          "title": "纪录片",
+          "weight": 19
+        },
+        {
+          "url": "23",
+          "title": "海外剧",
+          "weight": 20
+        },
+        {
+          "url": "25",
+          "title": "大陆综艺",
+          "weight": 21
+        },
+        {
+          "url": "26",
+          "title": "日韩综艺",
+          "weight": 22
+        },
+        {
+          "url": "27",
+          "title": "港台综艺",
+          "weight": 23
+        },
+        {
+          "url": "28",
+          "title": "欧美综艺",
+          "weight": 24
+        },
+        {
+          "url": "29",
+          "title": "国产动漫",
+          "weight": 25
+        },
+        {
+          "url": "30",
+          "title": "日本动漫",
+          "weight": 26
+        },
+        {
+          "url": "31",
+          "title": "欧美动漫",
+          "weight": 27
+        },
+        {
+          "url": "32",
+          "title": "海外动漫",
+          "weight": 28
+        },
+        {
+          "url": "49",
+          "title": "篮球",
+          "weight": 29
+        }
+      ],
+      "dtNodesEntities": [
+        {
+          "id": "kcm3u8",
+          "name": "在线播放",
+          "weight": 0,
+          "videoType": "Direct",
+          "canDownload": true
+        }
+      ]
+    },
+    {
+      "id": "okzyw",
+      "name": "OK资源",
+      "api": "http://api.okzyw.net/api.php/provide/vod/",
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.7103.48 Safari/537.36"
+      },
+      "classEntities": [
+        {
+          "url": "54",
+          "title": "爽文短剧",
+          "weight": 1
+        },
+        {
+          "url": "6",
+          "title": "动作片",
+          "weight": 7
+        },
+        {
+          "url": "7",
+          "title": "喜剧片",
+          "weight": 8
+        },
+        {
+          "url": "8",
+          "title": "爱情片",
+          "weight": 9
+        },
+        {
+          "url": "9",
+          "title": "科幻片",
+          "weight": 10
+        },
+        {
+          "url": "10",
+          "title": "恐怖片",
+          "weight": 11
+        },
+        {
+          "url": "11",
+          "title": "剧情片",
+          "weight": 12
+        },
+        {
+          "url": "12",
+          "title": "战争片",
+          "weight": 13
+        },
+        {
+          "url": "13",
+          "title": "国产剧",
+          "weight": 14
+        },
+        {
+          "url": "14",
+          "title": "欧美剧",
+          "weight": 15
+        },
+        {
+          "url": "15",
+          "title": "韩剧",
+          "weight": 16
+        },
+        {
+          "url": "16",
+          "title": "日剧",
+          "weight": 17
+        },
+        {
+          "url": "17",
+          "title": "港剧",
+          "weight": 18
+        },
+        {
+          "url": "18",
+          "title": "台剧",
+          "weight": 19
+        },
+        {
+          "url": "19",
+          "title": "泰剧",
+          "weight": 20
+        },
+        {
+          "url": "20",
+          "title": "纪录片",
+          "weight": 21
+        },
+        {
+          "url": "23",
+          "title": "海外剧",
+          "weight": 22
+        },
+        {
+          "url": "25",
+          "title": "大陆综艺",
+          "weight": 23
+        },
+        {
+          "url": "26",
+          "title": "日韩综艺",
+          "weight": 24
+        },
+        {
+          "url": "27",
+          "title": "港台综艺",
+          "weight": 25
+        },
+        {
+          "url": "28",
+          "title": "欧美综艺",
+          "weight": 26
+        },
+        {
+          "url": "29",
+          "title": "国产动漫",
+          "weight": 27
+        },
+        {
+          "url": "30",
+          "title": "日韩动漫",
+          "weight": 28
+        },
+        {
+          "url": "31",
+          "title": "欧美动漫",
+          "weight": 29
+        },
+        {
+          "url": "39",
+          "title": "动画片",
+          "weight": 30
+        },
+        {
+          "url": "44",
+          "title": "港台动漫",
+          "weight": 31
+        },
+        {
+          "url": "45",
+          "title": "海外动漫",
+          "weight": 32
+        },
+        {
+          "url": "47",
+          "title": "演唱会",
+          "weight": 33
+        },
+        {
+          "url": "48",
+          "title": "体育赛事",
+          "weight": 34
+        },
+        {
+          "url": "49",
+          "title": "篮球",
+          "weight": 35
+        },
+        {
+          "url": "50",
+          "title": "足球",
+          "weight": 36
+        },
+        {
+          "url": "51",
+          "title": "预告片",
+          "weight": 37
+        },
+        {
+          "url": "52",
+          "title": "斯诺克",
+          "weight": 38
+        },
+        {
+          "url": "53",
+          "title": "影视解说",
+          "weight": 39
+        },
+        {
+          "url": "62",
+          "title": "4K电影",
+          "weight": 47
+        },
+        {
+          "url": "63",
+          "title": "有声动漫",
+          "weight": 48
+        },
+        {
+          "url": "64",
+          "title": "女频恋爱",
+          "weight": 49
+        },
+        {
+          "url": "65",
+          "title": "反转爽剧",
+          "weight": 50
+        },
+        {
+          "url": "66",
+          "title": "古装仙侠",
+          "weight": 51
+        },
+        {
+          "url": "67",
+          "title": "年代穿越",
+          "weight": 52
+        },
+        {
+          "url": "68",
+          "title": "脑洞悬疑",
+          "weight": 53
+        },
+        {
+          "url": "69",
+          "title": "现代都市",
+          "weight": 54
+        },
+        {
+          "url": "70",
+          "title": "邵氏电影",
+          "weight": 55
+        },
+        {
+          "url": "71",
+          "title": "Netflix自制剧",
+          "weight": 56
+        },
+        {
+          "url": "72",
+          "title": "Netflix电影",
+          "weight": 57
+        },
+        {
+          "url": "74",
+          "title": "科普学习",
+          "weight": 58
+        },
+        {
+          "url": "75",
+          "title": "漫剧",
+          "weight": 59
+        }
+      ],
+      "dtNodesEntities": [
+        {
+          "id": "okm3u8",
+          "name": "在线播放",
+          "weight": 0,
+          "videoType": "Direct",
+          "canDownload": true
+        }
+      ]
+    },
+    {
+      "id": "zuidapi",
+      "name": "最大资源网",
+      "api": "https://api.zuidapi.com/api.php/provide/vod/",
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.7103.48 Safari/537.36"
+      },
+      "classEntities": [
+        {
+          "url": "54",
+          "title": "爽文短剧",
+          "weight": 1
+        },
+        {
+          "url": "6",
+          "title": "动作片",
+          "weight": 2
+        },
+        {
+          "url": "7",
+          "title": "喜剧片",
+          "weight": 3
+        },
+        {
+          "url": "8",
+          "title": "爱情片",
+          "weight": 4
+        },
+        {
+          "url": "10",
+          "title": "恐怖片",
+          "weight": 5
+        },
+        {
+          "url": "11",
+          "title": "剧情片",
+          "weight": 6
+        },
+        {
+          "url": "12",
+          "title": "战争片",
+          "weight": 7
+        },
+        {
+          "url": "13",
+          "title": "国产剧",
+          "weight": 8
+        },
+        {
+          "url": "14",
+          "title": "欧美剧",
+          "weight": 9
+        },
+        {
+          "url": "15",
+          "title": "韩剧",
+          "weight": 10
+        },
+        {
+          "url": "16",
+          "title": "日剧",
+          "weight": 11
+        },
+        {
+          "url": "18",
+          "title": "台剧",
+          "weight": 12
+        },
+        {
+          "url": "20",
+          "title": "纪录片",
+          "weight": 13
+        },
+        {
+          "url": "23",
+          "title": "海外剧",
+          "weight": 14
+        },
+        {
+          "url": "25",
+          "title": "大陆综艺",
+          "weight": 15
+        },
+        {
+          "url": "26",
+          "title": "日韩综艺",
+          "weight": 16
+        },
+        {
+          "url": "27",
+          "title": "港台综艺",
+          "weight": 17
+        },
+        {
+          "url": "28",
+          "title": "欧美综艺",
+          "weight": 18
+        },
+        {
+          "url": "29",
+          "title": "国产动漫",
+          "weight": 19
+        },
+        {
+          "url": "30",
+          "title": "日韩动漫",
+          "weight": 20
+        },
+        {
+          "url": "31",
+          "title": "欧美动漫",
+          "weight": 21
+        },
+        {
+          "url": "39",
+          "title": "动画片",
+          "weight": 22
+        },
+        {
+          "url": "45",
+          "title": "海外动漫",
+          "weight": 23
+        },
+        {
+          "url": "47",
+          "title": "演唱会",
+          "weight": 24
+        },
+        {
+          "url": "49",
+          "title": "篮球",
+          "weight": 25
+        },
+        {
+          "url": "50",
+          "title": "足球",
+          "weight": 26
+        },
+        {
+          "url": "51",
+          "title": "预告片",
+          "weight": 27
+        },
+        {
+          "url": "53",
+          "title": "影视解说",
+          "weight": 28
+        },
+        {
+          "url": "61",
+          "title": "写真热舞",
+          "weight": 29
+        },
+        {
+          "url": "62",
+          "title": "4K电影",
+          "weight": 30
+        },
+        {
+          "url": "63",
+          "title": "有声动漫",
+          "weight": 31
+        },
+        {
+          "url": "64",
+          "title": "女频恋爱",
+          "weight": 32
+        },
+        {
+          "url": "65",
+          "title": "反转爽剧",
+          "weight": 33
+        },
+        {
+          "url": "66",
+          "title": "古装仙侠",
+          "weight": 34
+        },
+        {
+          "url": "67",
+          "title": "年代穿越",
+          "weight": 35
+        },
+        {
+          "url": "68",
+          "title": "脑洞悬疑",
+          "weight": 36
+        },
+        {
+          "url": "69",
+          "title": "现代都市",
+          "weight": 37
+        },
+        {
+          "url": "70",
+          "title": "邵氏电影",
+          "weight": 38
+        },
+        {
+          "url": "71",
+          "title": "Netflix电影",
+          "weight": 39
+        },
+        {
+          "url": "72",
+          "title": "Netflix自制剧",
+          "weight": 40
+        },
+        {
+          "url": "74",
+          "title": "科普学习",
+          "weight": 41
+        }
+      ],
+      "dtNodesEntities": [
+        {
+          "id": "zuidam3u8",
+          "name": "在线播放",
+          "weight": 0,
+          "videoType": "Direct",
+          "canDownload": true
+        }
+      ]
+    },
+    {
+      "id": "suoniapi",
+      "name": "索尼资源",
+      "api": "https://suoniapi.com/api.php/provide/vod/at/xml",
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.7103.48 Safari/537.36"
+      },
+      "classEntities": [
+        {
+          "url": "73",
+          "title": "短剧",
+          "weight": 1
+        },
+        {
+          "url": "6",
+          "title": "动作片",
+          "weight": 2
+        },
+        {
+          "url": "7",
+          "title": "喜剧片",
+          "weight": 3
+        },
+        {
+          "url": "8",
+          "title": "爱情片",
+          "weight": 4
+        },
+        {
+          "url": "9",
+          "title": "科幻片",
+          "weight": 5
+        },
+        {
+          "url": "10",
+          "title": "恐怖片",
+          "weight": 6
+        },
+        {
+          "url": "11",
+          "title": "剧情片",
+          "weight": 7
+        },
+        {
+          "url": "12",
+          "title": "战争片",
+          "weight": 8
+        },
+        {
+          "url": "13",
+          "title": "国产剧",
+          "weight": 9
+        },
+        {
+          "url": "14",
+          "title": "欧美剧",
+          "weight": 10
+        },
+        {
+          "url": "15",
+          "title": "韩剧",
+          "weight": 11
+        },
+        {
+          "url": "16",
+          "title": "日剧",
+          "weight": 12
+        },
+        {
+          "url": "18",
+          "title": "台剧",
+          "weight": 13
+        },
+        {
+          "url": "19",
+          "title": "泰剧",
+          "weight": 14
+        },
+        {
+          "url": "20",
+          "title": "纪录片",
+          "weight": 15
+        },
+        {
+          "url": "23",
+          "title": "海外剧",
+          "weight": 16
+        },
+        {
+          "url": "25",
+          "title": "大陆综艺",
+          "weight": 17
+        },
+        {
+          "url": "26",
+          "title": "日韩综艺",
+          "weight": 18
+        },
+        {
+          "url": "27",
+          "title": "港台综艺",
+          "weight": 19
+        },
+        {
+          "url": "28",
+          "title": "欧美综艺",
+          "weight": 20
+        },
+        {
+          "url": "29",
+          "title": "国产动漫",
+          "weight": 21
+        },
+        {
+          "url": "30",
+          "title": "日韩动漫",
+          "weight": 22
+        },
+        {
+          "url": "31",
+          "title": "欧美动漫",
+          "weight": 23
+        },
+        {
+          "url": "39",
+          "title": "动画片",
+          "weight": 24
+        },
+        {
+          "url": "45",
+          "title": "海外动漫",
+          "weight": 25
+        },
+        {
+          "url": "47",
+          "title": "演唱会",
+          "weight": 26
+        },
+        {
+          "url": "49",
+          "title": "篮球",
+          "weight": 27
+        },
+        {
+          "url": "50",
+          "title": "足球",
+          "weight": 28
+        },
+        {
+          "url": "51",
+          "title": "预告片",
+          "weight": 29
+        },
+        {
+          "url": "53",
+          "title": "影视解说",
+          "weight": 30
+        },
+        {
+          "url": "54",
+          "title": "爽文短剧",
+          "weight": 31
+        },
+        {
+          "url": "61",
+          "title": "写真热舞",
+          "weight": 32
+        },
+        {
+          "url": "62",
+          "title": "4K电影",
+          "weight": 33
+        },
+        {
+          "url": "63",
+          "title": "有声动漫",
+          "weight": 34
+        },
+        {
+          "url": "64",
+          "title": "女频恋爱",
+          "weight": 35
+        },
+        {
+          "url": "65",
+          "title": "反转爽剧",
+          "weight": 36
+        },
+        {
+          "url": "66",
+          "title": "古装仙侠",
+          "weight": 37
+        },
+        {
+          "url": "67",
+          "title": "年代穿越",
+          "weight": 38
+        },
+        {
+          "url": "68",
+          "title": "脑洞悬疑",
+          "weight": 39
+        },
+        {
+          "url": "69",
+          "title": "现代都市",
+          "weight": 40
+        },
+        {
+          "url": "70",
+          "title": "邵氏电影",
+          "weight": 41
+        },
+        {
+          "url": "71",
+          "title": "Netflix电影",
+          "weight": 42
+        },
+        {
+          "url": "72",
+          "title": "Netflix自制剧",
+          "weight": 43
+        },
+        {
+          "url": "75",
+          "title": "科普学习",
+          "weight": 44
+        },
+        {
+          "url": "77",
+          "title": "儿童儿歌",
+          "weight": 45
+        }
+      ],
+      "dtNodesEntities": [
+        {
+          "id": "snm3u8",
+          "name": "在线播放",
+          "weight": 0,
+          "videoType": "Direct",
+          "canDownload": true
+        }
+      ]
+    },
+    {
+      "id": "yayazyapi",
+      "name": "鸭鸭资源网",
+      "api": "https://cj.yayazy.net/api.php/provide/vod/",
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.7103.48 Safari/537.36"
+      },
+      "classEntities": [
+        {
+          "url": "63",
+          "title": "有声动漫",
+          "weight": 47
+        },
+        {
+          "url": "6",
+          "title": "动作片",
+          "weight": 5
+        },
+        {
+          "url": "7",
+          "title": "喜剧片",
+          "weight": 6
+        },
+        {
+          "url": "8",
+          "title": "爱情片",
+          "weight": 7
+        },
+        {
+          "url": "9",
+          "title": "科幻片",
+          "weight": 8
+        },
+        {
+          "url": "10",
+          "title": "恐怖片",
+          "weight": 9
+        },
+        {
+          "url": "11",
+          "title": "剧情片",
+          "weight": 10
+        },
+        {
+          "url": "12",
+          "title": "战争片",
+          "weight": 11
+        },
+        {
+          "url": "13",
+          "title": "国产剧",
+          "weight": 12
+        },
+        {
+          "url": "14",
+          "title": "欧美剧",
+          "weight": 13
+        },
+        {
+          "url": "15",
+          "title": "韩剧",
+          "weight": 14
+        },
+        {
+          "url": "16",
+          "title": "日剧",
+          "weight": 15
+        },
+        {
+          "url": "17",
+          "title": "港剧",
+          "weight": 16
+        },
+        {
+          "url": "18",
+          "title": "台剧",
+          "weight": 17
+        },
+        {
+          "url": "19",
+          "title": "泰剧",
+          "weight": 18
+        },
+        {
+          "url": "20",
+          "title": "纪录片",
+          "weight": 19
+        },
+        {
+          "url": "23",
+          "title": "海外剧",
+          "weight": 20
+        },
+        {
+          "url": "25",
+          "title": "大陆综艺",
+          "weight": 21
+        },
+        {
+          "url": "26",
+          "title": "日韩综艺",
+          "weight": 22
+        },
+        {
+          "url": "27",
+          "title": "港台综艺",
+          "weight": 23
+        },
+        {
+          "url": "28",
+          "title": "欧美综艺",
+          "weight": 24
+        },
+        {
+          "url": "29",
+          "title": "国产动漫",
+          "weight": 25
+        },
+        {
+          "url": "30",
+          "title": "日韩动漫",
+          "weight": 26
+        },
+        {
+          "url": "31",
+          "title": "欧美动漫",
+          "weight": 27
+        },
+        {
+          "url": "39",
+          "title": "动画片",
+          "weight": 28
+        },
+        {
+          "url": "44",
+          "title": "港台动漫",
+          "weight": 29
+        },
+        {
+          "url": "45",
+          "title": "海外动漫",
+          "weight": 30
+        },
+        {
+          "url": "47",
+          "title": "演唱会",
+          "weight": 31
+        },
+        {
+          "url": "48",
+          "title": "体育赛事",
+          "weight": 32
+        },
+        {
+          "url": "49",
+          "title": "篮球",
+          "weight": 33
+        },
+        {
+          "url": "50",
+          "title": "足球",
+          "weight": 34
+        },
+        {
+          "url": "51",
+          "title": "预告片",
+          "weight": 35
+        },
+        {
+          "url": "52",
+          "title": "斯诺克",
+          "weight": 36
+        },
+        {
+          "url": "53",
+          "title": "影视解说",
+          "weight": 37
+        },
+        {
+          "url": "54",
+          "title": "爽文短剧",
+          "weight": 38
+        },
+        {
+          "url": "61",
+          "title": "写真热舞",
+          "weight": 45
+        },
+        {
+          "url": "62",
+          "title": "4K电影",
+          "weight": 46
+        },
+        {
+          "url": "64",
+          "title": "女频恋爱",
+          "weight": 48
+        },
+        {
+          "url": "65",
+          "title": "反转爽剧",
+          "weight": 49
+        },
+        {
+          "url": "66",
+          "title": "古装仙侠",
+          "weight": 50
+        },
+        {
+          "url": "67",
+          "title": "年代穿越",
+          "weight": 51
+        },
+        {
+          "url": "68",
+          "title": "脑洞悬疑",
+          "weight": 52
+        },
+        {
+          "url": "69",
+          "title": "现代都市",
+          "weight": 53
+        },
+        {
+          "url": "70",
+          "title": "邵氏电影",
+          "weight": 54
+        },
+        {
+          "url": "71",
+          "title": "Netflix电影",
+          "weight": 55
+        },
+        {
+          "url": "72",
+          "title": "Netflix自制剧",
+          "weight": 56
+        },
+        {
+          "url": "73",
+          "title": "擦边短剧",
+          "weight": 57
+        },
+        {
+          "url": "74",
+          "title": "科普学习",
+          "weight": 58
+        },
+        {
+          "url": "75",
+          "title": "漫剧",
+          "weight": 59
+        }
+      ],
+      "dtNodesEntities": [
+        {
+          "id": "yym3u8",
+          "name": "在线播放",
+          "weight": 0,
+          "videoType": "Direct",
+          "canDownload": true
+        }
+      ]
+    },
+    {
+      "id": "apibdzy",
+      "name": "百度资源",
+      "api": "https://api.apibdzy.com/api.php/provide/vod/?ac=list",
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.7103.48 Safari/537.36"
+      },
+      "classEntities": [
+        {
+          "url": "54",
+          "title": "爽文短剧",
+          "weight": 1
+        },
+        {
+          "url": "6",
+          "title": "动作片",
+          "weight": 6
+        },
+        {
+          "url": "7",
+          "title": "喜剧片",
+          "weight": 7
+        },
+        {
+          "url": "8",
+          "title": "爱情片",
+          "weight": 8
+        },
+        {
+          "url": "9",
+          "title": "科幻片",
+          "weight": 9
+        },
+        {
+          "url": "10",
+          "title": "恐怖片",
+          "weight": 10
+        },
+        {
+          "url": "11",
+          "title": "剧情片",
+          "weight": 11
+        },
+        {
+          "url": "12",
+          "title": "战争片",
+          "weight": 12
+        },
+        {
+          "url": "13",
+          "title": "大陆剧",
+          "weight": 13
+        },
+        {
+          "url": "14",
+          "title": "欧美剧",
+          "weight": 14
+        },
+        {
+          "url": "15",
+          "title": "韩剧",
+          "weight": 15
+        },
+        {
+          "url": "16",
+          "title": "日剧",
+          "weight": 16
+        },
+        {
+          "url": "17",
+          "title": "港澳剧",
+          "weight": 17
+        },
+        {
+          "url": "18",
+          "title": "台湾剧",
+          "weight": 18
+        },
+        {
+          "url": "19",
+          "title": "泰剧",
+          "weight": 19
+        },
+        {
+          "url": "20",
+          "title": "纪录片",
+          "weight": 20
+        },
+        {
+          "url": "23",
+          "title": "其他剧",
+          "weight": 21
+        },
+        {
+          "url": "25",
+          "title": "大陆综艺",
+          "weight": 22
+        },
+        {
+          "url": "26",
+          "title": "日韩综艺",
+          "weight": 23
+        },
+        {
+          "url": "27",
+          "title": "港台综艺",
+          "weight": 24
+        },
+        {
+          "url": "28",
+          "title": "欧美综艺",
+          "weight": 25
+        },
+        {
+          "url": "29",
+          "title": "国产动漫",
+          "weight": 26
+        },
+        {
+          "url": "30",
+          "title": "日韩动漫",
+          "weight": 27
+        },
+        {
+          "url": "31",
+          "title": "欧美动漫",
+          "weight": 28
+        },
+        {
+          "url": "39",
+          "title": "动画电影",
+          "weight": 29
+        },
+        {
+          "url": "44",
+          "title": "港台动漫",
+          "weight": 30
+        },
+        {
+          "url": "45",
+          "title": "海外动漫",
+          "weight": 31
+        },
+        {
+          "url": "47",
+          "title": "演唱会",
+          "weight": 32
+        },
+        {
+          "url": "48",
+          "title": "体育赛事",
+          "weight": 33
+        },
+        {
+          "url": "49",
+          "title": "篮球",
+          "weight": 34
+        },
+        {
+          "url": "50",
+          "title": "足球",
+          "weight": 35
+        },
+        {
+          "url": "51",
+          "title": "预告片",
+          "weight": 36
+        },
+        {
+          "url": "52",
+          "title": "斯诺克",
+          "weight": 37
+        },
+        {
+          "url": "53",
+          "title": "影视解说",
+          "weight": 38
+        },
+        {
+          "url": "62",
+          "title": "4K电影",
+          "weight": 46
+        },
+        {
+          "url": "63",
+          "title": "有声动漫",
+          "weight": 47
+        },
+        {
+          "url": "64",
+          "title": "女频恋爱",
+          "weight": 48
+        },
+        {
+          "url": "65",
+          "title": "反转爽剧",
+          "weight": 49
+        },
+        {
+          "url": "66",
+          "title": "古装仙侠",
+          "weight": 50
+        },
+        {
+          "url": "67",
+          "title": "年代穿越",
+          "weight": 51
+        },
+        {
+          "url": "68",
+          "title": "脑洞悬疑",
+          "weight": 52
+        },
+        {
+          "url": "69",
+          "title": "现代都市",
+          "weight": 53
+        },
+        {
+          "url": "70",
+          "title": "邵氏电影",
+          "weight": 54
+        }
+      ],
+      "dtNodesEntities": [
+        {
+          "id": "dbm3u8",
+          "name": "在线播放",
+          "weight": 0,
+          "videoType": "Direct",
+          "canDownload": true
+        }
+      ]
+    },
+    {
+      "id": "ukuapi88",
+      "name": "U酷资源",
+      "api": "https://api.ukuapi88.com/api.php/provide/vod/",
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.7103.48 Safari/537.36"
+      },
+      "classEntities": [
+        {
+          "url": "32",
+          "title": "短剧",
+          "weight": 1
+        },
+        {
+          "url": "3",
+          "title": "综艺",
+          "weight": 4
+        },
+        {
+          "url": "4",
+          "title": "动漫",
+          "weight": 5
+        },
+        {
+          "url": "6",
+          "title": "动作片",
+          "weight": 6
+        },
+        {
+          "url": "7",
+          "title": "喜剧片",
+          "weight": 7
+        },
+        {
+          "url": "8",
+          "title": "爱情片",
+          "weight": 8
+        },
+        {
+          "url": "9",
+          "title": "科幻片",
+          "weight": 9
+        },
+        {
+          "url": "10",
+          "title": "恐怖片",
+          "weight": 10
+        },
+        {
+          "url": "11",
+          "title": "剧情片",
+          "weight": 11
+        },
+        {
+          "url": "12",
+          "title": "战争片",
+          "weight": 12
+        },
+        {
+          "url": "13",
+          "title": "国产剧",
+          "weight": 13
+        },
+        {
+          "url": "14",
+          "title": "港澳剧",
+          "weight": 14
+        },
+        {
+          "url": "15",
+          "title": "日剧",
+          "weight": 15
+        },
+        {
+          "url": "16",
+          "title": "欧美剧",
+          "weight": 16
+        },
+        {
+          "url": "20",
+          "title": "动漫电影",
+          "weight": 17
+        },
+        {
+          "url": "21",
+          "title": "台湾剧",
+          "weight": 18
+        },
+        {
+          "url": "22",
+          "title": "韩剧",
+          "weight": 19
+        },
+        {
+          "url": "23",
+          "title": "泰剧",
+          "weight": 20
+        },
+        {
+          "url": "24",
+          "title": "记录片",
+          "weight": 21
+        },
+        {
+          "url": "26",
+          "title": "资讯",
+          "weight": 23
+        },
+        {
+          "url": "27",
+          "title": "新闻资讯",
+          "weight": 24
+        },
+        {
+          "url": "28",
+          "title": "预告资讯",
+          "weight": 25
+        },
+        {
+          "url": "30",
+          "title": "影视资讯",
+          "weight": 26
+        },
+        {
+          "url": "31",
+          "title": "明星资讯",
+          "weight": 27
+        },
+        {
+          "url": "33",
+          "title": "奇幻片",
+          "weight": 28
+        },
+        {
+          "url": "34",
+          "title": "犯罪片",
+          "weight": 29
+        }
+      ],
+      "dtNodesEntities": [
+        {
+          "id": "ukm3u8",
+          "name": "在线播放",
+          "weight": 0,
+          "videoType": "Direct",
+          "canDownload": true
+        },
+        {
+          "id": "ukyun",
+          "name": "云播放",
+          "weight": 1,
+          "videoType": "Sniff"
+        }
+      ]
+    },
+    {
+      "id": "maotaizy",
+      "name": "茅台资源网",
+      "api": "https://caiji.maotaizy.cc/api.php/provide/vod/",
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.7103.48 Safari/537.36"
+      },
+      "classEntities": [
+        {
+          "url": "37",
+          "title": "短剧大全",
+          "weight": 0
+        },
+        {
+          "url": "2",
+          "title": "连续剧",
+          "weight": 1
+        },
+        {
+          "url": "3",
+          "title": "综艺片",
+          "weight": 2
+        },
+        {
+          "url": "4",
+          "title": "动漫",
+          "weight": 3
+        },
+        {
+          "url": "5",
+          "title": "纪录片",
+          "weight": 4
+        },
+        {
+          "url": "6",
+          "title": "动作片",
+          "weight": 5
+        },
+        {
+          "url": "7",
+          "title": "爱情片",
+          "weight": 6
+        },
+        {
+          "url": "8",
+          "title": "喜剧片",
+          "weight": 7
+        },
+        {
+          "url": "9",
+          "title": "科幻片",
+          "weight": 8
+        },
+        {
+          "url": "10",
+          "title": "恐怖片",
+          "weight": 9
+        },
+        {
+          "url": "11",
+          "title": "剧情片",
+          "weight": 10
+        },
+        {
+          "url": "12",
+          "title": "战争片",
+          "weight": 11
+        },
+        {
+          "url": "13",
+          "title": "国产剧",
+          "weight": 12
+        },
+        {
+          "url": "14",
+          "title": "香港剧",
+          "weight": 13
+        },
+        {
+          "url": "16",
+          "title": "韩剧",
+          "weight": 15
+        },
+        {
+          "url": "20",
+          "title": "动漫电影",
+          "weight": 16
+        },
+        {
+          "url": "21",
+          "title": "泰国剧",
+          "weight": 17
+        },
+        {
+          "url": "22",
+          "title": "日本剧",
+          "weight": 18
+        },
+        {
+          "url": "23",
+          "title": "台湾剧",
+          "weight": 19
+        },
+        {
+          "url": "24",
+          "title": "海外剧",
+          "weight": 20
+        },
+        {
+          "url": "25",
+          "title": "大陆综艺",
+          "weight": 21
+        },
+        {
+          "url": "26",
+          "title": "日韩综艺",
+          "weight": 22
+        },
+        {
+          "url": "27",
+          "title": "港台综艺",
+          "weight": 23
+        },
+        {
+          "url": "28",
+          "title": "欧美综艺",
+          "weight": 24
+        },
+        {
+          "url": "30",
+          "title": "国产动漫",
+          "weight": 26
+        },
+        {
+          "url": "31",
+          "title": "日本动漫",
+          "weight": 27
+        },
+        {
+          "url": "32",
+          "title": "欧美动漫",
+          "weight": 28
+        },
+        {
+          "url": "33",
+          "title": "海外动漫",
+          "weight": 29
+        },
+        {
+          "url": "36",
+          "title": "体育赛事",
+          "weight": 31
+        },
+        {
+          "url": "38",
+          "title": "篮球",
+          "weight": 33
+        },
+        {
+          "url": "39",
+          "title": "足球",
+          "weight": 34
+        },
+        {
+          "url": "40",
+          "title": "网球",
+          "weight": 35
+        },
+        {
+          "url": "41",
+          "title": "斯诺克",
+          "weight": 36
+        },
+        {
+          "url": "43",
+          "title": "重生民国",
+          "weight": 38
+        },
+        {
+          "url": "44",
+          "title": "穿越现代",
+          "weight": 39
+        },
+        {
+          "url": "45",
+          "title": "反转爽剧",
+          "weight": 40
+        },
+        {
+          "url": "46",
+          "title": "言情总裁",
+          "weight": 41
+        },
+        {
+          "url": "47",
+          "title": "现代都市",
+          "weight": 42
+        },
+        {
+          "url": "48",
+          "title": "古装仙侠",
+          "weight": 43
+        },
+        {
+          "url": "49",
+          "title": "悬疑烧脑",
+          "weight": 44
+        },
+        {
+          "url": "50",
+          "title": "惊悚片",
+          "weight": 45
+        }
+      ],
+      "dtNodesEntities": [
+        {
+          "id": "mtm3u8",
+          "name": "在线播放",
+          "weight": 0,
+          "videoType": "Direct",
+          "canDownload": true
+        },
+        {
+          "id": "mtyun",
+          "name": "云播放",
+          "weight": 1,
+          "videoType": "Sniff"
+        }
+      ]
+    },
+    {
+      "id": "dyttzyapi",
+      "name": "天堂资源网",
+      "api": "http://caiji.dyttzyapi.com/api.php/provide/vod/",
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.7103.48 Safari/537.36"
+      },
+      "classEntities": [
+        {
+          "url": "36",
+          "title": "短剧",
+          "weight": 1
+        },
+        {
+          "url": "6",
+          "title": "动作片",
+          "weight": 4
+        },
+        {
+          "url": "7",
+          "title": "喜剧片",
+          "weight": 5
+        },
+        {
+          "url": "8",
+          "title": "爱情片",
+          "weight": 6
+        },
+        {
+          "url": "9",
+          "title": "科幻片",
+          "weight": 7
+        },
+        {
+          "url": "10",
+          "title": "恐怖片",
+          "weight": 8
+        },
+        {
+          "url": "11",
+          "title": "剧情片",
+          "weight": 9
+        },
+        {
+          "url": "12",
+          "title": "战争片",
+          "weight": 10
+        },
+        {
+          "url": "13",
+          "title": "国产剧",
+          "weight": 11
+        },
+        {
+          "url": "14",
+          "title": "香港剧",
+          "weight": 12
+        },
+        {
+          "url": "15",
+          "title": "韩国剧",
+          "weight": 13
+        },
+        {
+          "url": "16",
+          "title": "欧美剧",
+          "weight": 14
+        },
+        {
+          "url": "20",
+          "title": "记录片",
+          "weight": 15
+        },
+        {
+          "url": "21",
+          "title": "台湾剧",
+          "weight": 16
+        },
+        {
+          "url": "22",
+          "title": "日本剧",
+          "weight": 17
+        },
+        {
+          "url": "23",
+          "title": "海外剧",
+          "weight": 18
+        },
+        {
+          "url": "24",
+          "title": "泰国剧",
+          "weight": 19
+        },
+        {
+          "url": "25",
+          "title": "大陆综艺",
+          "weight": 20
+        },
+        {
+          "url": "26",
+          "title": "港台综艺",
+          "weight": 21
+        },
+        {
+          "url": "27",
+          "title": "日韩综艺",
+          "weight": 22
+        },
+        {
+          "url": "28",
+          "title": "欧美综艺",
+          "weight": 23
+        },
+        {
+          "url": "29",
+          "title": "国产动漫",
+          "weight": 24
+        },
+        {
+          "url": "30",
+          "title": "日韩动漫",
+          "weight": 25
+        },
+        {
+          "url": "31",
+          "title": "欧美动漫",
+          "weight": 26
+        },
+        {
+          "url": "32",
+          "title": "港台动漫",
+          "weight": 27
+        },
+        {
+          "url": "37",
+          "title": "动画片",
+          "weight": 31
+        }
+      ],
+      "dtNodesEntities": [
+        {
+          "id": "dyttm3u8",
+          "name": "在线播放",
+          "weight": 0,
+          "videoType": "Direct",
+          "canDownload": true
+        },
+        {
+          "id": "dytt",
+          "name": "云播放",
+          "weight": 1,
+          "videoType": "Sniff"
+        }
+      ]
+    },
+    {
+      "id": "taopianzy",
+      "name": "淘片资源",
+      "api": "https://www.taopianzy.com/cjapi/mc10/vod/json.html",
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.7103.48 Safari/537.36"
+      },
+      "classEntities": [
+        {
+          "url": "15597568",
+          "title": "国产剧",
+          "weight": 1
+        },
+        {
+          "url": "15204352",
+          "title": "欧美剧",
+          "weight": 2
+        },
+        {
+          "url": "15794176",
+          "title": "韩国剧",
+          "weight": 3
+        },
+        {
+          "url": "15728640",
+          "title": "日本剧",
+          "weight": 4
+        },
+        {
+          "url": "15663104",
+          "title": "香港剧",
+          "weight": 5
+        },
+        {
+          "url": "16318464",
+          "title": "台湾剧",
+          "weight": 6
+        },
+        {
+          "url": "16121856",
+          "title": "泰国剧",
+          "weight": 7
+        },
+        {
+          "url": "15532032",
+          "title": "海外剧",
+          "weight": 8
+        },
+        {
+          "url": "14942208",
+          "title": "动作片",
+          "weight": 9
+        },
+        {
+          "url": "15007744",
+          "title": "喜剧片",
+          "weight": 10
+        },
+        {
+          "url": "14876672",
+          "title": "爱情片",
+          "weight": 11
+        },
+        {
+          "url": "15335424",
+          "title": "科幻片",
+          "weight": 12
+        },
+        {
+          "url": "14811136",
+          "title": "恐怖片",
+          "weight": 13
+        },
+        {
+          "url": "14548992",
+          "title": "剧情片",
+          "weight": 14
+        },
+        {
+          "url": "15400960",
+          "title": "战争片",
+          "weight": 15
+        },
+        {
+          "url": "15269888",
+          "title": "奇幻片",
+          "weight": 16
+        },
+        {
+          "url": "15138816",
+          "title": "冒险片",
+          "weight": 17
+        },
+        {
+          "url": "14614528",
+          "title": "惊悚片",
+          "weight": 18
+        },
+        {
+          "url": "8388608",
+          "title": "悬疑片",
+          "weight": 19
+        },
+        {
+          "url": "1179648",
+          "title": "纪录片",
+          "weight": 20
+        },
+        {
+          "url": "15073280",
+          "title": "动画片",
+          "weight": 21
+        },
+        {
+          "url": "15925248",
+          "title": "国产动漫",
+          "weight": 22
+        },
+        {
+          "url": "15859712",
+          "title": "日本动漫",
+          "weight": 23
+        },
+        {
+          "url": "15990784",
+          "title": "欧美动漫",
+          "weight": 24
+        },
+        {
+          "url": "16515072",
+          "title": "海外动漫",
+          "weight": 25
+        },
+        {
+          "url": "16056320",
+          "title": "大陆综艺",
+          "weight": 26
+        },
+        {
+          "url": "16187392",
+          "title": "港台综艺",
+          "weight": 27
+        },
+        {
+          "url": "16384000",
+          "title": "日韩综艺",
+          "weight": 28
+        },
+        {
+          "url": "16252928",
+          "title": "欧美综艺",
+          "weight": 29
+        },
+        {
+          "url": "16449536",
+          "title": "海外综艺",
+          "weight": 30
+        }
+      ],
+      "dtNodesEntities": [
+        {
+          "id": "tpm3u8",
+          "name": "在线播放",
+          "weight": 0,
+          "videoType": "Direct",
+          "canDownload": true
+        },
+        {
+          "id": "tpiframe",
+          "name": "云播放",
+          "weight": 1,
+          "videoType": "Sniff"
+        }
+      ]
+    },
+    {
+      "id": "yzzy-api",
+      "name": "优质资源网",
+      "api": "https://api.yzzy-api.com/inc/api_mac10_all.php",
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.7103.48 Safari/537.36"
+      },
+      "classEntities": [
+        {
+          "url": "83",
+          "title": "短剧大全",
+          "weight": 1
+        },
+        {
+          "url": "5",
+          "title": "动作片",
+          "weight": 4
+        },
+        {
+          "url": "6",
+          "title": "喜剧片",
+          "weight": 5
+        },
+        {
+          "url": "7",
+          "title": "爱情片",
+          "weight": 6
+        },
+        {
+          "url": "8",
+          "title": "科幻片",
+          "weight": 7
+        },
+        {
+          "url": "11",
+          "title": "战争片",
+          "weight": 10
+        },
+        {
+          "url": "12",
+          "title": "国产剧",
+          "weight": 11
+        },
+        {
+          "url": "13",
+          "title": "台湾剧",
+          "weight": 12
+        },
+        {
+          "url": "17",
+          "title": "泰国剧",
+          "weight": 16
+        },
+        {
+          "url": "18",
+          "title": "日本剧",
+          "weight": 17
+        },
+        {
+          "url": "19",
+          "title": "福利",
+          "weight": 18
+        },
+        {
+          "url": "20",
+          "title": "记录片",
+          "weight": 19
+        },
+        {
+          "url": "41",
+          "title": "动画片",
+          "weight": 20
+        },
+        {
+          "url": "54",
+          "title": "海外剧",
+          "weight": 21
+        },
+        {
+          "url": "62",
+          "title": "大陆综艺",
+          "weight": 23
+        },
+        {
+          "url": "63",
+          "title": "港台综艺",
+          "weight": 24
+        },
+        {
+          "url": "64",
+          "title": "日韩综艺",
+          "weight": 25
+        },
+        {
+          "url": "65",
+          "title": "欧美综艺",
+          "weight": 26
+        },
+        {
+          "url": "66",
+          "title": "国产动漫",
+          "weight": 27
+        },
+        {
+          "url": "67",
+          "title": "日韩动漫",
+          "weight": 28
+        },
+        {
+          "url": "68",
+          "title": "欧美动漫",
+          "weight": 29
+        },
+        {
+          "url": "78",
+          "title": "搞笑",
+          "weight": 32
+        },
+        {
+          "url": "80",
+          "title": "影视",
+          "weight": 34
+        },
+        {
+          "url": "81",
+          "title": "汽车",
+          "weight": 35
+        },
+        {
+          "url": "93",
+          "title": "预告片",
+          "weight": 38
+        },
+        {
+          "url": "94",
+          "title": "体育",
+          "weight": 39
+        }
+      ],
+      "dtNodesEntities": [
+        {
+          "id": "1080zyk",
+          "name": "在线播放",
+          "weight": 0,
+          "videoType": "Direct",
+          "canDownload": true
+        },
+        {
+          "id": "zykyun",
+          "name": "云播放",
+          "weight": 1,
+          "videoType": "Sniff"
+        }
+      ]
+    },
+    {
+      "id": "ffzyapi",
+      "name": "非凡资源",
+      "api": "http://api.ffzyapi.com/api.php/provide/vod/",
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.7103.48 Safari/537.36"
+      },
+      "classEntities": [
+        {
+          "url": "36",
+          "title": "短剧",
+          "weight": 1
+        },
+        {
+          "url": "4",
+          "title": "动漫片",
+          "weight": 5
+        },
+        {
+          "url": "6",
+          "title": "动作片",
+          "weight": 6
+        },
+        {
+          "url": "7",
+          "title": "喜剧片",
+          "weight": 7
+        },
+        {
+          "url": "8",
+          "title": "爱情片",
+          "weight": 8
+        },
+        {
+          "url": "9",
+          "title": "科幻片",
+          "weight": 9
+        },
+        {
+          "url": "10",
+          "title": "恐怖片",
+          "weight": 10
+        },
+        {
+          "url": "11",
+          "title": "剧情片",
+          "weight": 11
+        },
+        {
+          "url": "12",
+          "title": "战争片",
+          "weight": 12
+        },
+        {
+          "url": "13",
+          "title": "国产剧",
+          "weight": 13
+        },
+        {
+          "url": "14",
+          "title": "香港剧",
+          "weight": 14
+        },
+        {
+          "url": "15",
+          "title": "韩国剧",
+          "weight": 15
+        },
+        {
+          "url": "16",
+          "title": "欧美剧",
+          "weight": 16
+        },
+        {
+          "url": "20",
+          "title": "记录片",
+          "weight": 17
+        },
+        {
+          "url": "21",
+          "title": "台湾剧",
+          "weight": 18
+        },
+        {
+          "url": "22",
+          "title": "日本剧",
+          "weight": 19
+        },
+        {
+          "url": "23",
+          "title": "海外剧",
+          "weight": 20
+        },
+        {
+          "url": "24",
+          "title": "泰国剧",
+          "weight": 21
+        },
+        {
+          "url": "25",
+          "title": "大陆综艺",
+          "weight": 22
+        },
+        {
+          "url": "26",
+          "title": "港台综艺",
+          "weight": 23
+        },
+        {
+          "url": "27",
+          "title": "日韩综艺",
+          "weight": 24
+        },
+        {
+          "url": "28",
+          "title": "欧美综艺",
+          "weight": 25
+        },
+        {
+          "url": "29",
+          "title": "国产动漫",
+          "weight": 26
+        },
+        {
+          "url": "30",
+          "title": "日韩动漫",
+          "weight": 27
+        },
+        {
+          "url": "31",
+          "title": "欧美动漫",
+          "weight": 28
+        },
+        {
+          "url": "32",
+          "title": "港台动漫",
+          "weight": 29
+        },
+        {
+          "url": "33",
+          "title": "海外动漫",
+          "weight": 30
+        }
+      ],
+      "dtNodesEntities": [
+        {
+          "id": "ffm3u8",
+          "name": "在线播放",
+          "weight": 0,
+          "videoType": "Direct",
+          "canDownload": true
+        },
+        {
+          "id": "feifan",
+          "name": "非凡播放",
+          "weight": 1,
+          "videoType": "Sniff"
+        }
+      ]
+    },
+    {
+      "id": "rycjapi",
+      "name": "如意资源",
+      "api": "https://cj.rycjapi.com/api.php/provide/vod/",
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.7103.48 Safari/537.36"
+      },
+      "classEntities": [
+        {
+          "url": "46",
+          "title": "短剧",
+          "weight": 1
+        },
+        {
+          "url": "6",
+          "title": "动作片",
+          "weight": 6
+        },
+        {
+          "url": "7",
+          "title": "喜剧片",
+          "weight": 7
+        },
+        {
+          "url": "8",
+          "title": "爱情片",
+          "weight": 8
+        },
+        {
+          "url": "9",
+          "title": "科幻片",
+          "weight": 9
+        },
+        {
+          "url": "10",
+          "title": "恐怖片",
+          "weight": 10
+        },
+        {
+          "url": "11",
+          "title": "剧情片",
+          "weight": 11
+        },
+        {
+          "url": "12",
+          "title": "战争片",
+          "weight": 12
+        },
+        {
+          "url": "13",
+          "title": "国产剧",
+          "weight": 13
+        },
+        {
+          "url": "14",
+          "title": "香港剧",
+          "weight": 14
+        },
+        {
+          "url": "15",
+          "title": "韩国剧",
+          "weight": 15
+        },
+        {
+          "url": "16",
+          "title": "欧美剧",
+          "weight": 16
+        },
+        {
+          "url": "20",
+          "title": "记录片",
+          "weight": 17
+        },
+        {
+          "url": "23",
+          "title": "海外剧",
+          "weight": 18
+        },
+        {
+          "url": "25",
+          "title": "大陆综艺",
+          "weight": 19
+        },
+        {
+          "url": "26",
+          "title": "港台综艺",
+          "weight": 20
+        },
+        {
+          "url": "27",
+          "title": "日韩综艺",
+          "weight": 21
+        },
+        {
+          "url": "28",
+          "title": "欧美综艺",
+          "weight": 22
+        },
+        {
+          "url": "29",
+          "title": "国产动漫",
+          "weight": 23
+        },
+        {
+          "url": "30",
+          "title": "日本动漫",
+          "weight": 24
+        },
+        {
+          "url": "31",
+          "title": "欧美动漫",
+          "weight": 25
+        },
+        {
+          "url": "32",
+          "title": "海外动漫",
+          "weight": 26
+        },
+        {
+          "url": "39",
+          "title": "动画片",
+          "weight": 27
+        }
+      ],
+      "dtNodesEntities": [
+        {
+          "id": "rym3u8",
+          "name": "在线播放",
+          "weight": 0,
+          "videoType": "Direct",
+          "canDownload": true
+        },
+        {
+          "id": "ruyi",
+          "name": "如意播放",
+          "weight": 1,
+          "videoType": "Direct",
+          "canDownload": true
+        }
+      ]
+    },
+    {
+      "id": "lziapi",
+      "name": "量子资源网",
+      "api": "https://cj.lziapi.com/api.php/provide/vod/",
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.7103.48 Safari/537.36"
+      },
+      "classEntities": [
+        {
+          "url": "46",
+          "title": "短剧",
+          "weight": 1
+        },
+        {
+          "url": "6",
+          "title": "动作片",
+          "weight": 4
+        },
+        {
+          "url": "7",
+          "title": "喜剧片",
+          "weight": 5
+        },
+        {
+          "url": "8",
+          "title": "爱情片",
+          "weight": 6
+        },
+        {
+          "url": "9",
+          "title": "科幻片",
+          "weight": 7
+        },
+        {
+          "url": "10",
+          "title": "恐怖片",
+          "weight": 8
+        },
+        {
+          "url": "11",
+          "title": "剧情片",
+          "weight": 9
+        },
+        {
+          "url": "12",
+          "title": "战争片",
+          "weight": 10
+        },
+        {
+          "url": "13",
+          "title": "国产剧",
+          "weight": 11
+        },
+        {
+          "url": "14",
+          "title": "香港剧",
+          "weight": 12
+        },
+        {
+          "url": "15",
+          "title": "韩国剧",
+          "weight": 13
+        },
+        {
+          "url": "16",
+          "title": "欧美剧",
+          "weight": 14
+        },
+        {
+          "url": "20",
+          "title": "记录片",
+          "weight": 15
+        },
+        {
+          "url": "21",
+          "title": "台湾剧",
+          "weight": 16
+        },
+        {
+          "url": "22",
+          "title": "日本剧",
+          "weight": 17
+        },
+        {
+          "url": "23",
+          "title": "海外剧",
+          "weight": 18
+        },
+        {
+          "url": "24",
+          "title": "泰国剧",
+          "weight": 19
+        },
+        {
+          "url": "25",
+          "title": "大陆综艺",
+          "weight": 20
+        },
+        {
+          "url": "26",
+          "title": "港台综艺",
+          "weight": 21
+        },
+        {
+          "url": "27",
+          "title": "日韩综艺",
+          "weight": 22
+        },
+        {
+          "url": "28",
+          "title": "欧美综艺",
+          "weight": 23
+        },
+        {
+          "url": "29",
+          "title": "国产动漫",
+          "weight": 24
+        },
+        {
+          "url": "30",
+          "title": "日韩动漫",
+          "weight": 25
+        },
+        {
+          "url": "31",
+          "title": "欧美动漫",
+          "weight": 26
+        },
+        {
+          "url": "32",
+          "title": "港台动漫",
+          "weight": 27
+        },
+        {
+          "url": "33",
+          "title": "海外动漫",
+          "weight": 28
+        },
+        {
+          "url": "35",
+          "title": "电影解说",
+          "weight": 30
+        },
+        {
+          "url": "37",
+          "title": "足球",
+          "weight": 32
+        },
+        {
+          "url": "38",
+          "title": "篮球",
+          "weight": 33
+        },
+        {
+          "url": "39",
+          "title": "网球",
+          "weight": 34
+        },
+        {
+          "url": "40",
+          "title": "斯诺克",
+          "weight": 35
+        },
+        {
+          "url": "45",
+          "title": "预告片",
+          "weight": 36
+        }
+      ],
+      "dtNodesEntities": [
+        {
+          "id": "lzm3u8",
+          "name": "在线播放",
+          "weight": 0,
+          "videoType": "Direct",
+          "canDownload": true
+        },
+        {
+          "id": "liangzi",
+          "name": "云播放",
+          "weight": 1,
+          "videoType": "Sniff"
+        }
+      ]
+    },
+    {
+      "id": "maoyanapi",
+      "name": "猫眼资源网",
+      "api": "https://api.maoyanapi.top/api.php/provide/vod/",
+      "headers": {
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.7103.48 Safari/537.36"
+      },
+      "classEntities": [
+        {
+          "url": "47",
+          "title": "短剧",
+          "weight": 1
+        },
+        {
+          "url": "6",
+          "title": "动作片",
+          "weight": 5
+        },
+        {
+          "url": "8",
+          "title": "爱情片",
+          "weight": 7
+        },
+        {
+          "url": "9",
+          "title": "科幻片",
+          "weight": 8
+        },
+        {
+          "url": "10",
+          "title": "恐怖片",
+          "weight": 9
+        },
+        {
+          "url": "11",
+          "title": "剧情片",
+          "weight": 10
+        },
+        {
+          "url": "12",
+          "title": "战争片",
+          "weight": 11
+        },
+        {
+          "url": "13",
+          "title": "国产剧",
+          "weight": 12
+        },
+        {
+          "url": "14",
+          "title": "香港剧",
+          "weight": 13
+        },
+        {
+          "url": "15",
+          "title": "韩国剧",
+          "weight": 14
+        },
+        {
+          "url": "16",
+          "title": "欧美剧",
+          "weight": 15
+        },
+        {
+          "url": "18",
+          "title": "NBA",
+          "weight": 17
+        },
+        {
+          "url": "20",
+          "title": "惊悚片",
+          "weight": 18
+        },
+        {
+          "url": "21",
+          "title": "家庭篇",
+          "weight": 19
+        },
+        {
+          "url": "22",
+          "title": "古装片",
+          "weight": 20
+        },
+        {
+          "url": "23",
+          "title": "历史片",
+          "weight": 21
+        },
+        {
+          "url": "24",
+          "title": "悬疑片",
+          "weight": 22
+        },
+        {
+          "url": "25",
+          "title": "犯罪片",
+          "weight": 23
+        },
+        {
+          "url": "26",
+          "title": "灾难片",
+          "weight": 24
+        },
+        {
+          "url": "27",
+          "title": "纪录片",
+          "weight": 25
+        },
+        {
+          "url": "28",
+          "title": "短片",
+          "weight": 26
+        },
+        {
+          "url": "29",
+          "title": "动画片",
+          "weight": 27
+        },
+        {
+          "url": "30",
+          "title": "台湾剧",
+          "weight": 28
+        },
+        {
+          "url": "31",
+          "title": "日本剧",
+          "weight": 29
+        },
+        {
+          "url": "33",
+          "title": "泰国剧",
+          "weight": 31
+        },
+        {
+          "url": "34",
+          "title": "大陆综艺",
+          "weight": 32
+        },
+        {
+          "url": "36",
+          "title": "日韩综艺",
+          "weight": 34
+        },
+        {
+          "url": "38",
+          "title": "国产动漫",
+          "weight": 36
+        },
+        {
+          "url": "39",
+          "title": "欧美动漫",
+          "weight": 37
+        },
+        {
+          "url": "40",
+          "title": "日韩动漫",
+          "weight": 38
+        },
+        {
+          "url": "45",
+          "title": "西部片",
+          "weight": 42
+        },
+        {
+          "url": "54",
+          "title": "奇幻片",
+          "weight": 51
+        }
+      ],
+      "dtNodesEntities": [
+        {
+          "id": "mym3u8",
+          "name": "在线播放",
+          "weight": 0,
+          "videoType": "Direct",
+          "canDownload": true
+        }
+      ]
+    }
+  ]
+}
