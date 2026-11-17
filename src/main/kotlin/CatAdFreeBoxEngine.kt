@@ -51,7 +51,7 @@ class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
         val lang: String,
         val actor: String,
         val des: String,
-        val playLines: List<Pair<String, String>> // flag to "第01集$url#..."
+        val playLines: List<Pair<String, String>>
     )
 
     private data class VodPageResult(
@@ -61,12 +61,34 @@ class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
 
     private val ioExecutor = Executors.newCachedThreadPool()
 
+    private val mainHandlerObj: Any? by lazy {
+        runCatching {
+            val looperCls = Class.forName("android.os.Looper")
+            val mainLooper = looperCls.getMethod("getMainLooper").invoke(null)
+            val handlerCls = Class.forName("android.os.Handler")
+            handlerCls.getConstructor(looperCls).newInstance(mainLooper)
+        }.getOrNull()
+    }
+
+    private fun runOnMainThread(action: () -> Unit) {
+        val handler = mainHandlerObj
+        if (handler != null) {
+            val ok = runCatching {
+                handler.javaClass.getMethod("post", Runnable::class.java)
+                    .invoke(handler, Runnable { action() })
+                true
+            }.getOrDefault(false)
+            if (ok) return
+        }
+        action()
+    }
+
     @Volatile
     private var cachedSites: List<MacSiteConfig>? = null
 
     private val subUrlPref = object : TextEditPreference(
         title = "订阅地址",
-        summary = "配置包含 Mac 源的 JSON 订阅地址（默认官方订阅，支持 ghproxy 镜像链接）",
+        summary = "配置包含 Mac 源的 JSON 订阅地址（默认官方订阅，支持镜像链接）",
         hint = DEFAULT_SUB_URL
     ) {
         override fun getText(): String = context.getString("sub_url", DEFAULT_SUB_URL)
@@ -110,8 +132,8 @@ class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
     init {
         id = "cat_adfree_box"
         name = "去广告聚合盒子"
-        versionCode = 1
-        versionName = "1.0.0"
+        versionCode = 2
+        versionName = "1.0.1"
         description = "自动拉取官方订阅中的 Mac 资源站（西瓜、果脯、淘片、U酷等），统一执行 M3U8 切片去广告后播放。"
     }
 
@@ -155,9 +177,9 @@ class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
                         })
                     }
                 }
-                onSuccess(entities)
-            }.onFailure {
-                onError(it)
+                runOnMainThread { onSuccess(entities) }
+            }.onFailure { err ->
+                runOnMainThread { onError(err) }
             }
         }
     }
@@ -195,9 +217,10 @@ class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
                         sourceName = this@CatAdFreeBoxEngine.name
                     }
                 }
-                onSuccess(BaseClassResultEntity(hasMore = parsed.hasMore, results))
-            }.onFailure {
-                onError(it)
+                val res = BaseClassResultEntity(hasMore = parsed.hasMore, results)
+                runOnMainThread { onSuccess(res) }
+            }.onFailure { err ->
+                runOnMainThread { onError(err) }
             }
         }
     }
@@ -248,9 +271,10 @@ class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
                 }
 
                 latch.await(7, TimeUnit.SECONDS)
-                onSuccess(BaseSearchResultEntity(hasMore = anyHasMore, value = merged.toList()))
-            }.onFailure {
-                onError(it)
+                val res = BaseSearchResultEntity(hasMore = anyHasMore, value = merged.toList())
+                runOnMainThread { onSuccess(res) }
+            }.onFailure { err ->
+                runOnMainThread { onError(err) }
             }
         }
     }
@@ -306,7 +330,7 @@ class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
                         append(item.des.replace(Regex("<[^>]+>"), "").trim())
                     }
                     browserUrl = apiUrl
-                    url = detailPageUrl
+                    url = apiUrl
                     sourceId = this@CatAdFreeBoxEngine.id
                     sourceName = this@CatAdFreeBoxEngine.name
 
@@ -329,10 +353,8 @@ class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
 
                                     VideoDetailDataEntity().apply {
                                         id = "${site.id}_${item.id}_${flag}_$epIdx".toMd5String()
-                                        cover = item.pic
                                         title = epName
                                         if (!isSniffConfig || isDirectMedia) {
-                                            // 强制走 Decode -> 必进 getPlayUrl() -> 必过 M3u8AdCleaner
                                             videoUrl = "catplay://${site.id}|$epUrl"
                                             videoType = VideoType.Decode
                                             canDownload = true
@@ -348,9 +370,9 @@ class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
                         }
                     }
                 }
-                onSuccess(detail)
-            }.onFailure {
-                onError(it)
+                runOnMainThread { onSuccess(detail) }
+            }.onFailure { err ->
+                runOnMainThread { onError(err) }
             }
         }
     }
@@ -392,7 +414,8 @@ class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
                 actualUrl
             }
 
-            onSuccess(PlayUrlEntity(url = finalPlayUrl, headers = playHeaders))
+            val entity = PlayUrlEntity(url = finalPlayUrl, headers = playHeaders)
+            runOnMainThread { onSuccess(entity) }
         }
     }
 
