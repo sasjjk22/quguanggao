@@ -6,13 +6,21 @@ import urllib.parse
 import urllib.request
 import xml.etree.ElementTree as ET
 
+try:
+    from curl_cffi import requests as cffi_requests
+except ImportError:
+    cffi_requests = None
+
 OFFICIAL_SUB_URL = "https://raw.githubusercontent.com/Jason-wam/Cat-Maven-2023/main/const/index.main.json"
 
-# 已知不想保留的站点（名字或 id 关键词），生成 my_cat_sources.json 时会自动剔除
+# 想剔除的站点关键词（名字或 id）
 EXCLUDE_KEYWORDS = ["西瓜"]
 
-# 设为 True 时，自动把测出“超过15段假标签混淆”的站点（类似西瓜）也剔除出纯净订阅
+# 自动剔除高危假标签混淆源（类似西瓜）
 AUTO_DROP_OBFUSCATED = True
+
+# 如想连“DNS解析失败的疑似死站”也自动剔除，可改成 True
+AUTO_DROP_DEAD = False
 
 SSL_CTX = ssl.create_default_context()
 SSL_CTX.check_hostname = False
@@ -20,11 +28,30 @@ SSL_CTX.verify_mode = ssl.CERT_NONE
 
 
 def http_get(url: str, headers: dict = None, timeout: int = 10):
+    parsed = urllib.parse.urlparse(url)
+    origin = f"{parsed.scheme}://{parsed.netloc}/"
     req_headers = {
-        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/136.0.0.0 Safari/537.36"
+        "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/136.0.0.0 Safari/537.36",
+        "Accept": "application/json, text/xml, application/xml, text/plain, */*",
+        "Accept-Language": "zh-CN,zh;q=0.9",
+        "Referer": origin,
     }
     if headers:
         req_headers.update(headers)
+
+    if cffi_requests is not None:
+        resp = cffi_requests.get(
+            url,
+            headers=req_headers,
+            timeout=timeout,
+            impersonate="chrome",
+            verify=False,
+            allow_redirects=True,
+        )
+        if resp.status_code >= 400:
+            raise RuntimeError(f"HTTP_{resp.status_code}")
+        return resp.url, resp.text
+
     req = urllib.request.Request(url, headers=req_headers)
     with urllib.request.urlopen(req, timeout=timeout, context=SSL_CTX) as resp:
         return resp.geturl(), resp.read().decode("utf-8", errors="ignore")
@@ -101,24 +128,34 @@ def analyze_m3u8(m3u8_url: str, headers: dict):
 
 
 def probe_one_site(cfg: dict):
-    name = cfg.get("name", "")
     api = cfg.get("api", "")
     headers = cfg.get("headers") or {}
     sep = "&" if "?" in api else "?"
 
     t0 = time.time()
     try:
-        # 优先拿最新一页列表测 M3U8（最快最稳）
         _, vod_raw = http_get(f"{api}{sep}ac=videolist&pg=1", headers=headers, timeout=10)
         latency_ms = int((time.time() - t0) * 1000)
         m3u8_url = extract_m3u8_from_vod(vod_raw)
         if not m3u8_url:
             return cfg, latency_ms, "⚪ 未抓到M3U8(可能是Sniff网页源)", "-"
-        status, host, g_num = analyze_m3u8(m3u8_url, headers)
+        status, host, _ = analyze_m3u8(m3u8_url, headers)
         return cfg, latency_ms, status, host
     except Exception as e:
         latency_ms = int((time.time() - t0) * 1000)
-        return cfg, latency_ms, f"⚠️ 连接超时/受限({type(e).__name__})", "-"
+        msg = str(e)
+        if "HTTP_" in msg:
+            code = msg.split("HTTP_", 1)[1].split()[0]
+            return cfg, latency_ms, f"⚠️ 被拦截/报错(HTTP {code})", "-"
+        if "timed out" in msg.lower() or "timeout" in msg.lower():
+            return cfg, latency_ms, "⚠️ 连接超时", "-"
+        if (
+            "could not resolve" in msg.lower()
+            or "name or service not known" in msg.lower()
+            or "nodename nor servname" in msg.lower()
+        ):
+            return cfg, latency_ms, "💀 域名已失效(DNS解析失败)", "-"
+        return cfg, latency_ms, f"⚠️ 连接失败({type(e).__name__})", "-"
 
 
 def main():
@@ -150,27 +187,31 @@ def main():
         for res in pool.map(probe_one_site, configs):
             results.append(res)
 
-    # 排序：🟢排最前，🟡其次，⚠️放后，🔴放最后
     def sort_key(row):
         st = row[2]
         if st.startswith("🟢"):
             return (0, row[1])
         if st.startswith("🟡"):
             return (1, row[1])
-        if st.startswith("⚠️"):
+        if st.startswith("⚪"):
             return (2, row[1])
-        return (3, row[1])
+        if st.startswith("⚠️"):
+            return (3, row[1])
+        if st.startswith("💀"):
+            return (4, row[1])
+        return (5, row[1])
 
     results.sort(key=sort_key)
 
     clean_sites = []
     report_lines = [
-        "# 33个采集源自动筛查报告",
+        "# 采集源自动筛查报告（Chrome 指纹增强版）",
         "",
-        "> 🟢 = M3U8结构干净（建议保留，但仍建议实测1部剧防硬编码）  ",
+        "> 🟢 = M3U8结构干净（建议保留）  ",
         "> 🟡 = 含可清除的短分段插播广告（插件可自动切除）  ",
         "> 🔴 = 全流多段假标签混淆（类似西瓜，无法靠M3U8规则清除）  ",
-        "> ⚠️ = 海外GitHub服务器连不上该站（不代表国内手机不能用，已默认保留在订阅中）",
+        "> ⚠️ = 被防火墙拦截(如403)或海外连接超时（国内手机仍可能正常）  ",
+        "> 💀 = 域名解析失败/疑似已失效（建议从订阅里删掉）",
         "",
         "| 站点名称 | ID | 延迟 | M3U8体检结果 | 播放CDN域名 | 状态 |",
         "|---|---|---|---|---|---|",
@@ -181,12 +222,12 @@ def main():
         sid = cfg.get("id", "")
         in_blacklist = any(kw.lower() in name.lower() or kw.lower() == sid.lower() for kw in EXCLUDE_KEYWORDS)
         is_obfuscated = status.startswith("🔴") and AUTO_DROP_OBFUSCATED
+        is_dead = status.startswith("💀") and AUTO_DROP_DEAD
 
-        if in_blacklist or is_obfuscated:
+        if in_blacklist or is_obfuscated or is_dead:
             action = "❌ 已剔除"
         else:
             action = "✅ 已收入"
-            # 精简保留 CatAdFreeBoxEngine 需要的核心字段，减小体积
             clean_sites.append({
                 "id": sid,
                 "name": name,
