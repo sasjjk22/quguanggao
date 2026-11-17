@@ -26,7 +26,7 @@ class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
 
     companion object {
         // 可把此处换成你自己的单文件订阅:
-        // "https://fastly.jsdelivr.net/gh/你的GitHub用户名/quguanggao@main/my_cat_sources.json"
+        "https://fastly.jsdelivr.net/gh/sasjjk22/quguanggao@main/my_cat_sources.json"
         private const val DEFAULT_SUB_URL =
             "https://fastly.jsdelivr.net/gh/Jason-wam/Cat-Maven-2023@main/const/index.main.json"
         private const val PREF_SUB_URL_KEY = "sub_url_v3"
