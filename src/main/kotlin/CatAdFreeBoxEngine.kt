@@ -434,7 +434,7 @@ class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
         val enabled = adModePref.getText() != "0"
         val defaultRegex = listOf(
             Regex("""(?i)/(ad|ads|guanggao|promo|advert)/"""),
-            Regex("""(?i)(ad|guanggao|zzad)\d*\.(ts|jpg|png)""")
+            Regex("""(?i)(^|/)(ad|ads|guanggao|zzad)[_-]?\d*\.(ts|jpg|png)""")
         )
         val extraRegex = customRegexPref.getText()
             .split(",", "\n", ";")
