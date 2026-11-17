@@ -1,5 +1,7 @@
+import base64
 import concurrent.futures
 import json
+import os
 import ssl
 import time
 import urllib.parse
@@ -12,15 +14,9 @@ except ImportError:
     cffi_requests = None
 
 OFFICIAL_SUB_URL = "https://raw.githubusercontent.com/Jason-wam/Cat-Maven-2023/main/const/index.main.json"
-
-# 想剔除的站点关键词（名字或 id）
 EXCLUDE_KEYWORDS = ["西瓜"]
-
-# 自动剔除高危假标签混淆源（类似西瓜）
 AUTO_DROP_OBFUSCATED = True
-
-# 如想连“DNS解析失败的疑似死站”也自动剔除，可改成 True
-AUTO_DROP_DEAD = False
+AUTO_DROP_DEAD = True
 
 SSL_CTX = ssl.create_default_context()
 SSL_CTX.check_hostname = False
@@ -158,6 +154,35 @@ def probe_one_site(cfg: dict):
         return cfg, latency_ms, f"⚠️ 连接失败({type(e).__name__})", "-"
 
 
+def write_builtin_kotlin(sub_obj: dict):
+    os.makedirs("src/main/kotlin", exist_ok=True)
+    raw_bytes = json.dumps(sub_obj, ensure_ascii=False).encode("utf-8")
+    b64_str = base64.b64encode(raw_bytes).decode("ascii")
+    chunks = [b64_str[i:i + 8000] for i in range(0, len(b64_str), 8000)]
+
+    lines = [
+        "import java.util.Base64",
+        "",
+        "object BuiltinSources {",
+        "    private val chunks = listOf(",
+    ]
+    for idx, ch in enumerate(chunks):
+        comma = "," if idx < len(chunks) - 1 else ""
+        lines.append(f'        "{ch}"{comma}')
+    lines.extend([
+        "    )",
+        "",
+        "    fun loadJson(): String {",
+        '        val b64 = chunks.joinToString("")',
+        "        return String(Base64.getDecoder().decode(b64), Charsets.UTF_8)",
+        "    }",
+        "}",
+        "",
+    ])
+    with open("src/main/kotlin/BuiltinSources.kt", "w", encoding="utf-8") as f:
+        f.write("\n".join(lines))
+
+
 def main():
     _, index_raw = http_get(OFFICIAL_SUB_URL, timeout=15)
     index_data = json.loads(index_raw)
@@ -209,9 +234,9 @@ def main():
         "",
         "> 🟢 = M3U8结构干净（建议保留）  ",
         "> 🟡 = 含可清除的短分段插播广告（插件可自动切除）  ",
-        "> 🔴 = 全流多段假标签混淆（类似西瓜，无法靠M3U8规则清除）  ",
+        "> 🔴 = 全流多段假标签混淆（已自动剔除）  ",
         "> ⚠️ = 被防火墙拦截(如403)或海外连接超时（国内手机仍可能正常）  ",
-        "> 💀 = 域名解析失败/疑似已失效（建议从订阅里删掉）",
+        "> 💀 = 域名解析失败/已失效（已自动剔除）",
         "",
         "| 站点名称 | ID | 延迟 | M3U8体检结果 | 播放CDN域名 | 状态 |",
         "|---|---|---|---|---|---|",
@@ -249,7 +274,8 @@ def main():
     with open("my_cat_sources.json", "w", encoding="utf-8") as f:
         json.dump(sub_obj, f, ensure_ascii=False, indent=2)
 
-    print(f"完成！体检 {len(results)} 个源，收入 {len(clean_sites)} 个到 my_cat_sources.json")
+    write_builtin_kotlin(sub_obj)
+    print(f"完成！体检 {len(results)} 个源，收入 {len(clean_sites)} 个并写入 BuiltinSources.kt")
 
 
 if __name__ == "__main__":
