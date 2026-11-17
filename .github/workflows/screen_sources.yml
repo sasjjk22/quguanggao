@@ -1,0 +1,29 @@
+name: Screen Sources and Build Clean Sub
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - 'screen_sources.py'
+      - '.github/workflows/screen_sources.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  screen:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run Source Screener
+        run: python3 screen_sources.py
+
+      - name: Commit Report and Subscription
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add my_cat_sources.json sources_report.md
+          git diff --cached --quiet || git commit -m "chore: update screened sources_report and my_cat_sources"
+          git push
