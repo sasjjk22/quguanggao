@@ -4,15 +4,6 @@
   "lives": [],
   "sites": [
     {
-      "key": "jyzyapi",
-      "name": "金鹰资源网",
-      "type": 1,
-      "api": "https://jyzyapi.com/provide/vod/",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
       "key": "jszyapi",
       "name": "极速资源网",
       "type": 1,
@@ -31,10 +22,10 @@
       "filterable": 1
     },
     {
-      "key": "huyaapi",
-      "name": "虎牙资源网",
+      "key": "jyzyapi",
+      "name": "金鹰资源网",
       "type": 1,
-      "api": "https://www.huyaapi.com/api.php/provide/vod/",
+      "api": "https://jyzyapi.com/provide/vod/",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -49,6 +40,15 @@
       "filterable": 1
     },
     {
+      "key": "hongniuzy2",
+      "name": "红牛资源网",
+      "type": 1,
+      "api": "https://www.hongniuzy2.com/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1
+    },
+    {
       "key": "hhzyapi",
       "name": "豪华资源网",
       "type": 1,
@@ -58,10 +58,19 @@
       "filterable": 1
     },
     {
-      "key": "hongniuzy2",
-      "name": "红牛资源网",
+      "key": "huyaapi",
+      "name": "虎牙资源网",
       "type": 1,
-      "api": "https://www.hongniuzy2.com/api.php/provide/vod/",
+      "api": "https://www.huyaapi.com/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1
+    },
+    {
+      "key": "360zy",
+      "name": "360资源",
+      "type": 1,
+      "api": "https://360zy.com/api.php/provide/vod/",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -76,19 +85,19 @@
       "filterable": 1
     },
     {
-      "key": "ffzyapi",
-      "name": "非凡资源",
+      "key": "apiyhzy",
+      "name": "樱花资源",
       "type": 1,
-      "api": "http://api.ffzyapi.com/api.php/provide/vod/",
+      "api": "https://m3u8.apiyhzy.com/api.php/provide/vod/",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
     },
     {
-      "key": "zuidapi",
-      "name": "最大资源网",
+      "key": "ffzyapi",
+      "name": "非凡资源",
       "type": 1,
-      "api": "https://api.zuidapi.com/api.php/provide/vod/",
+      "api": "http://api.ffzyapi.com/api.php/provide/vod/",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -112,15 +121,6 @@
       "filterable": 1
     },
     {
-      "key": "suoniapi",
-      "name": "索尼资源",
-      "type": 0,
-      "api": "https://suoniapi.com/api.php/provide/vod/at/xml",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
       "key": "okzyw",
       "name": "OK资源",
       "type": 1,
@@ -139,10 +139,28 @@
       "filterable": 1
     },
     {
+      "key": "suoniapi",
+      "name": "索尼资源",
+      "type": 0,
+      "api": "https://suoniapi.com/api.php/provide/vod/at/xml",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1
+    },
+    {
       "key": "kuaichezy",
       "name": "快车资源",
       "type": 1,
       "api": "https://caiji.kuaichezy.org/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1
+    },
+    {
+      "key": "zuidapi",
+      "name": "最大资源网",
+      "type": 1,
+      "api": "https://api.zuidapi.com/api.php/provide/vod/",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -166,15 +184,6 @@
       "filterable": 1
     },
     {
-      "key": "taopianzy",
-      "name": "淘片资源",
-      "type": 1,
-      "api": "https://www.taopianzy.com/cjapi/mc10/vod/json.html",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
       "key": "apibdzy",
       "name": "百度资源",
       "type": 1,
@@ -188,6 +197,15 @@
       "name": "U酷资源",
       "type": 1,
       "api": "https://api.ukuapi88.com/api.php/provide/vod/",
+      "searchable": 1,
+      "quickSearch": 1,
+      "filterable": 1
+    },
+    {
+      "key": "taopianzy",
+      "name": "淘片资源",
+      "type": 1,
+      "api": "https://www.taopianzy.com/cjapi/mc10/vod/json.html",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
@@ -224,15 +242,6 @@
       "name": "如意资源",
       "type": 1,
       "api": "https://cj.rycjapi.com/api.php/provide/vod/",
-      "searchable": 1,
-      "quickSearch": 1,
-      "filterable": 1
-    },
-    {
-      "key": "apiyhzy",
-      "name": "樱花资源",
-      "type": 1,
-      "api": "https://m3u8.apiyhzy.com/api.php/provide/vod/",
       "searchable": 1,
       "quickSearch": 1,
       "filterable": 1
