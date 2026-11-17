@@ -658,11 +658,11 @@ class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
 
         val videoNodes = doc.getElementsByTagName("video")
         val items = mutableListOf<VodItem>()
-        for (i in 0 until videoNodes.length()) {
+        for (i in 0 until videoNodes.length) {
             val el = videoNodes.item(i) as? Element ?: continue
             val ddNodes = el.getElementsByTagName("dd")
             val lines = mutableListOf<Pair<String, String>>()
-            for (j in 0 until ddNodes.length()) {
+            for (j in 0 until ddNodes.length) {
                 val dd = ddNodes.item(j) as? Element ?: continue
                 val flag = dd.getAttribute("flag").ifBlank { "line$j" }
                 val rawPlay = dd.textContent?.trim() ?: ""
