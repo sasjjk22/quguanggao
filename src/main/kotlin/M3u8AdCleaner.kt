@@ -179,6 +179,7 @@ object M3u8AdCleaner {
         val diagBuilder = StringBuilder()
         diagBuilder.appendLine("--- 分段概览(共${groups.size}段) ---")
 
+        val maxGroupDuration = groups.maxOf { it.totalDuration }
         val keptGroups = mutableListOf<SegmentGroup>()
         var accSec = 0.0
         for ((index, group) in groups.withIndex()) {
@@ -200,11 +201,13 @@ object M3u8AdCleaner {
                 val isShortGroup = group.totalDuration <= rule.maxAdGroupDurationSec
                 val groupSig = urlSignature(filteredSegments.first().url)
                 val isDifferentSource = dominantSignature != null && groupSig != dominantSignature
-                val isMiddleGroup = index in 1 until (groups.size - 1)
+                val isNormalAdLayout = groups.size in 2..8
+                val isPreRollAd = (index == 0 && maxGroupDuration >= 180.0)
+                val isMidRollAd = index in 1 until (groups.size - 1)
 
                 isShortGroup && (
                     isDifferentSource ||
-                        (rule.aggressiveDiscontinuityDrop && isMiddleGroup)
+                        (isNormalAdLayout && (isPreRollAd || isMidRollAd))
                     )
             } else {
                 false
