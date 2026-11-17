@@ -13,8 +13,10 @@ import java.io.BufferedReader
 import java.io.ByteArrayInputStream
 import java.io.InputStreamReader
 import java.net.HttpURLConnection
+import java.net.URI
 import java.net.URL
 import java.net.URLEncoder
+import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CountDownLatch
 import java.util.concurrent.Executors
 import java.util.concurrent.TimeUnit
@@ -66,6 +68,10 @@ class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
     private val ioExecutor = Executors.newCachedThreadPool()
     private val siteFetchExecutor = Executors.newFixedThreadPool(6)
 
+    // 连续失败熔断记录表：避免失效站点拖慢每次搜索
+    private val failCountMap = ConcurrentHashMap<String, Int>()
+    private val cooldownUntilMap = ConcurrentHashMap<String, Long>()
+
     private val mainHandlerObj: Any? by lazy {
         runCatching {
             val looperCls = Class.forName("android.os.Looper")
@@ -101,6 +107,8 @@ class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
         override fun onTextChanged(text: String) {
             context.putString(PREF_SUB_URL_KEY, text.trim().ifEmpty { DEFAULT_SUB_URL })
             cachedSites = null
+            failCountMap.clear()
+            cooldownUntilMap.clear()
             context.remove(PREF_CACHE_SITES_KEY)
             context.showToast("订阅已更新，下次搜索将重新加载站点")
             refreshUserViews()
@@ -160,9 +168,9 @@ class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
     init {
         id = "cat_adfree_box"
         name = "去广告聚合盒子"
-        versionCode = 4
-        versionName = "1.0.3"
-        description = "支持纯净单文件订阅 my_cat_sources.json 与官方多线拉取，自动过滤普通插播切片广告并支持站点屏蔽。"
+        versionCode = 5
+        versionName = "1.0.4"
+        description = "支持纯净单文件订阅 my_cat_sources.json，自动熔断死站、5秒极速搜索、智能去切片广告。"
     }
 
     override fun getFaviconUrl(): String = "https://caiji.xgzyapi.com/favicon.ico"
@@ -262,7 +270,13 @@ class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
     ) {
         ioExecutor.execute {
             runCatching {
-                val sites = loadMacSites()
+                val now = System.currentTimeMillis()
+                val allSites = loadMacSites()
+                val sites = allSites.filter { site ->
+                    val until = cooldownUntilMap[site.id] ?: 0L
+                    now >= until
+                }.ifEmpty { allSites }
+
                 val encodedKw = URLEncoder.encode(keywords, "UTF-8")
                 val latch = CountDownLatch(sites.size)
                 val merged = java.util.Collections.synchronizedList(mutableListOf<VideoSearchResultEntity>())
@@ -273,8 +287,9 @@ class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
                         try {
                             val sep = if (site.api.contains("?")) "&" else "?"
                             val apiUrl = "${site.api}${sep}ac=videolist&wd=$encodedKw&pg=$page"
-                            val raw = httpGet(apiUrl, site.headers, timeoutMs = 8000)
+                            val raw = httpGet(apiUrl, site.headers, timeoutMs = 5500)
                             if (!raw.isNullOrBlank()) {
+                                failCountMap[site.id] = 0
                                 val parsed = parseVodResponse(raw)
                                 if (parsed.hasMore) anyHasMore = true
                                 parsed.items.forEach { item ->
@@ -290,6 +305,12 @@ class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
                                         sourceName = this@CatAdFreeBoxEngine.name
                                     })
                                 }
+                            } else {
+                                val fails = (failCountMap[site.id] ?: 0) + 1
+                                failCountMap[site.id] = fails
+                                if (fails >= 2) {
+                                    cooldownUntilMap[site.id] = System.currentTimeMillis() + 10 * 60 * 1000L
+                                }
                             }
                         } catch (_: Exception) {
                         } finally {
@@ -298,7 +319,8 @@ class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
                     }
                 }
 
-                latch.await(10, TimeUnit.SECONDS)
+                // 最多等待 5.5 秒即先返回已查到的结果，不再傻等慢站/死站
+                latch.await(5500, TimeUnit.MILLISECONDS)
                 val res = BaseSearchResultEntity(hasMore = anyHasMore, value = merged.toList())
                 runOnMainThread { onSuccess(res) }
             }.onFailure { err ->
@@ -831,22 +853,41 @@ class CatAdFreeBoxEngine(context: JarSourceContext) : BaseJarSource(context) {
         return node.textContent?.trim() ?: ""
     }
 
-    private fun httpGet(urlStr: String, headers: Map<String, String>, timeoutMs: Int = 8000): String? {
-        var conn: HttpURLConnection? = null
-        return runCatching {
-            val connection = (URL(urlStr).openConnection() as HttpURLConnection).apply {
-                connectTimeout = timeoutMs
-                readTimeout = timeoutMs
-                instanceFollowRedirects = true
-                requestMethod = "GET"
-                setRequestProperty("User-Agent", headers["User-Agent"] ?: DEFAULT_UA)
-                headers.forEach { (k, v) -> setRequestProperty(k, v) }
+    private fun httpGet(urlStr: String, headers: Map<String, String>, timeoutMs: Int = 6000): String? {
+        var currentUrl = urlStr
+        for (hop in 0..4) {
+            var conn: HttpURLConnection? = null
+            try {
+                val parsed = URL(currentUrl)
+                val origin = "${parsed.protocol}://${parsed.authority}/"
+                val connection = (parsed.openConnection() as HttpURLConnection).apply {
+                    connectTimeout = minOf(timeoutMs, 3500)
+                    readTimeout = timeoutMs
+                    instanceFollowRedirects = false
+                    requestMethod = "GET"
+                    setRequestProperty("User-Agent", headers["User-Agent"] ?: DEFAULT_UA)
+                    setRequestProperty("Accept", "application/json, text/xml, application/xml, text/plain, */*")
+                    setRequestProperty("Accept-Language", "zh-CN,zh;q=0.9")
+                    if (!headers.containsKey("Referer")) {
+                        setRequestProperty("Referer", origin)
+                    }
+                    headers.forEach { (k, v) -> setRequestProperty(k, v) }
+                }
+                conn = connection
+                val code = connection.responseCode
+                if (code in listOf(301, 302, 303, 307, 308)) {
+                    val loc = connection.getHeaderField("Location") ?: return null
+                    currentUrl = URI(currentUrl).resolve(loc).toString()
+                    continue
+                }
+                if (code !in 200..299) return null
+                return BufferedReader(InputStreamReader(connection.inputStream, Charsets.UTF_8)).use { it.readText() }
+            } catch (_: Exception) {
+                return null
+            } finally {
+                conn?.disconnect()
             }
-            conn = connection
-            if (connection.responseCode !in 200..299) return null
-            BufferedReader(InputStreamReader(connection.inputStream, Charsets.UTF_8)).use { it.readText() }
-        }.also {
-            conn?.disconnect()
-        }.getOrNull()
+        }
+        return null
     }
 }
