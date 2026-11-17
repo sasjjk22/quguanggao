@@ -17,6 +17,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Install curl_cffi
+        run: pip install curl_cffi || true
+
       - name: Run Source Screener
         run: python3 screen_sources.py
 
