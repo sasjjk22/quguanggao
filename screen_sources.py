@@ -2,6 +2,7 @@ import base64
 import concurrent.futures
 import json
 import os
+import re
 import ssl
 import time
 import urllib.parse
@@ -123,6 +124,30 @@ def analyze_m3u8(m3u8_url: str, headers: dict):
     return f"🟢 常规多段(分段{g_num})", host, g_num
 
 
+def detect_better_json_api(api: str, headers: dict) -> tuple:
+    """尝试把 /at/xml/ 转成 TVBox 兼容性更好的 type=1 JSON 接口"""
+    api_lower = api.lower()
+    if "/at/xml" not in api_lower and not api_lower.endswith("xml") and not api_lower.endswith("xml/"):
+        return api, 1
+
+    candidates = [
+        re.sub(r"/at/xml/?$", "/", api, flags=re.I),
+        re.sub(r"/at/xml/?$", "/at/json/", api, flags=re.I),
+    ]
+    for cand in candidates:
+        if cand == api:
+            continue
+        sep = "&" if "?" in cand else "?"
+        try:
+            _, txt = http_get(f"{cand}{sep}ac=videolist&pg=1", headers=headers, timeout=6)
+            stripped = txt.lstrip("\ufeff \r\n\t")
+            if stripped.startswith("{") and '"list"' in stripped:
+                return cand, 1
+        except Exception:
+            pass
+    return api, 0
+
+
 def probe_one_site(cfg: dict):
     api = cfg.get("api", "")
     headers = cfg.get("headers") or {}
@@ -132,6 +157,11 @@ def probe_one_site(cfg: dict):
     try:
         _, vod_raw = http_get(f"{api}{sep}ac=videolist&pg=1", headers=headers, timeout=10)
         latency_ms = int((time.time() - t0) * 1000)
+
+        tv_api, tv_type = detect_better_json_api(api, headers)
+        cfg["_tvbox_api"] = tv_api
+        cfg["_tvbox_type"] = tv_type
+
         m3u8_url = extract_m3u8_from_vod(vod_raw)
         if not m3u8_url:
             return cfg, latency_ms, "⚪ 未抓到M3U8(可能是Sniff网页源)", "-"
@@ -139,6 +169,9 @@ def probe_one_site(cfg: dict):
         return cfg, latency_ms, status, host
     except Exception as e:
         latency_ms = int((time.time() - t0) * 1000)
+        cfg["_tvbox_api"] = api
+        api_lower = api.lower()
+        cfg["_tvbox_type"] = 0 if ("/at/xml" in api_lower or api_lower.endswith("xml") or api_lower.endswith("xml/")) else 1
         msg = str(e)
         if "HTTP_" in msg:
             code = msg.split("HTTP_", 1)[1].split()[0]
@@ -183,21 +216,51 @@ def write_builtin_kotlin(sub_obj: dict):
         f.write("\n".join(lines))
 
 
+def sort_tvbox_categories(class_entities: list) -> list:
+    """提取站点真实子分类，过滤无效项并把剧集/动漫/短剧排前面"""
+    titles = [c.get("title", "").strip() for c in sorted(class_entities, key=lambda x: x.get("weight", 0))]
+    titles = [t for t in titles if t and t not in ("伦理片", "福利", "里番", "电影", "连续剧", "电视剧")]
+
+    def cat_rank(t: str):
+        if any(k in t for k in ("国产剧", "内地剧", "大陆剧")):
+            return 0
+        if "短剧" in t:
+            return 1
+        if "剧" in t:
+            return 2
+        if "动漫" in t or "动画" in t:
+            return 3
+        if "综艺" in t:
+            return 4
+        if "片" in t:
+            return 5
+        return 6
+
+    return sorted(titles, key=cat_rank)
+
+
 def build_tvbox_json(clean_sites: list) -> dict:
     tvbox_sites = []
     for s in clean_sites:
-        api = s.get("api", "")
-        api_lower = api.lower()
-        site_type = 0 if ("/at/xml" in api_lower or api_lower.endswith("xml") or api_lower.endswith("xml/")) else 1
-        tvbox_sites.append({
+        tv_api = s.get("_tvbox_api") or s.get("api", "")
+        tv_type = s.get("_tvbox_type")
+        if tv_type is None:
+            api_lower = tv_api.lower()
+            tv_type = 0 if ("/at/xml" in api_lower or api_lower.endswith("xml") or api_lower.endswith("xml/")) else 1
+
+        site_entry = {
             "key": s["id"],
             "name": s["name"],
-            "type": site_type,
-            "api": api,
+            "type": tv_type,
+            "api": tv_api,
             "searchable": 1,
             "quickSearch": 1,
             "filterable": 1,
-        })
+        }
+        cats = sort_tvbox_categories(s.get("classEntities", []))
+        if cats:
+            site_entry["categories"] = cats
+        tvbox_sites.append(site_entry)
 
     return {
         "spider": "",
@@ -317,6 +380,7 @@ def main():
     results.sort(key=sort_key)
 
     clean_sites = []
+    tvbox_raw_sites = []
     report_lines = [
         "# 采集源自动筛查报告（Chrome 指纹增强版）",
         "",
@@ -341,13 +405,19 @@ def main():
             action = "❌ 已剔除"
         else:
             action = "✅ 已收入"
-            clean_sites.append({
+            clean_entry = {
                 "id": sid,
                 "name": name,
                 "api": cfg.get("api", ""),
                 "headers": cfg.get("headers", {}),
                 "classEntities": cfg.get("classEntities", []),
                 "dtNodesEntities": cfg.get("dtNodesEntities", []),
+            }
+            clean_sites.append(clean_entry)
+            tvbox_raw_sites.append({
+                **clean_entry,
+                "_tvbox_api": cfg.get("_tvbox_api"),
+                "_tvbox_type": cfg.get("_tvbox_type"),
             })
 
         report_lines.append(f"| {name} | `{sid}` | {ms}ms | {status} | `{host}` | {action} |")
@@ -363,7 +433,7 @@ def main():
         json.dump(sub_obj, f, ensure_ascii=False, indent=2)
 
     with open("my_sources.json", "w", encoding="utf-8") as f:
-        json.dump(build_tvbox_json(clean_sites), f, ensure_ascii=False, indent=2)
+        json.dump(build_tvbox_json(tvbox_raw_sites), f, ensure_ascii=False, indent=2)
 
     write_builtin_kotlin(sub_obj)
     print(f"完成！体检 {len(results)} 个源，收入 {len(clean_sites)} 个到 my_cat_sources.json 与 my_sources.json")
