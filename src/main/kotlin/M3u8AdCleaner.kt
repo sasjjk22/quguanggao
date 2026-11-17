@@ -8,11 +8,20 @@ data class AdBlockRule(
     val enabled: Boolean = true,
     val urlBlacklistRegex: List<Regex> = listOf(
         Regex("""(?i)/(ad|ads|guanggao|promo|advert)/"""),
-        Regex("""(?i)(ad|guanggao|zzad)\d*\.(ts|jpg|png)""")
+        Regex("""(?i)(^|/)(ad|ads|guanggao|zzad)[_-]?\d*\.(ts|jpg|png)""")
     ),
     val enableDiscontinuityFilter: Boolean = true,
     val maxAdGroupDurationSec: Double = 45.0,
-    val aggressiveDiscontinuityDrop: Boolean = true
+    val aggressiveDiscontinuityDrop: Boolean = false
+)
+
+data class CleanReport(
+    val cleanedContent: String,
+    val rawSegCount: Int,
+    val keptSegCount: Int,
+    val groupCount: Int,
+    val sampleAround600s: String,
+    val finalUrl: String
 )
 
 object M3u8AdCleaner {
@@ -38,21 +47,42 @@ object M3u8AdCleaner {
         rule: AdBlockRule = AdBlockRule(),
         depth: Int = 0
     ): String? {
-        if (!rule.enabled || depth > 3) return null
+        return fetchAndCleanWithReport(url, headers, rule, depth).first?.cleanedContent
+    }
 
-        val (finalUrl, rawContent) = httpGetText(url, headers) ?: return null
-        if (!rawContent.contains("#EXTM3U")) return null
+    fun fetchAndCleanWithReport(
+        url: String,
+        headers: Map<String, String> = emptyMap(),
+        rule: AdBlockRule = AdBlockRule(),
+        depth: Int = 0
+    ): Pair<CleanReport?, String> {
+        if (!rule.enabled) return null to "模式为关闭(0)"
+        if (depth > 3) return null to "嵌套层数过深"
+
+        val (finalUrl, rawContent, errMsg) = httpGetTextWithRedirects(url, headers)
+        if (finalUrl == null || rawContent == null) return null to "拉取失败: $errMsg"
+        if (!rawContent.contains("#EXTM3U")) return null to "非M3U8内容: ${rawContent.take(80)}"
 
         if (rawContent.contains("#EXT-X-STREAM-INF")) {
-            val subPlaylistUrl = pickBestVariantUrl(finalUrl, rawContent) ?: return null
-            return fetchAndClean(subPlaylistUrl, headers, rule, depth + 1)
+            val subPlaylistUrl = pickBestVariantUrl(finalUrl, rawContent)
+                ?: return null to "主列表未找到子播放列表"
+            return fetchAndCleanWithReport(subPlaylistUrl, headers, rule, depth + 1)
         }
 
-        if (!rawContent.contains("#EXTINF")) return null
-        return cleanMediaPlaylist(finalUrl, rawContent, rule)
+        if (!rawContent.contains("#EXTINF")) return null to "未找到#EXTINF切片"
+        val report = cleanMediaPlaylistWithReport(finalUrl, rawContent, rule)
+        return report to "清洗成功: ${report.rawSegCount}片->${report.keptSegCount}片(分段:${report.groupCount})"
     }
 
     fun cleanMediaPlaylist(baseUrl: String, content: String, rule: AdBlockRule): String {
+        return cleanMediaPlaylistWithReport(baseUrl, content, rule).cleanedContent
+    }
+
+    fun cleanMediaPlaylistWithReport(
+        baseUrl: String,
+        content: String,
+        rule: AdBlockRule
+    ): CleanReport {
         val lines = content.lines().map { it.trim() }.filter { it.isNotEmpty() }
 
         val headerLines = mutableListOf<String>()
@@ -113,16 +143,17 @@ object M3u8AdCleaner {
             groups.add(currentGroup)
         }
 
-        if (groups.isEmpty()) return content
-
         val allSegments = groups.flatMap { it.segments }
+        if (allSegments.isEmpty()) {
+            return CleanReport(content, 0, 0, 0, "无切片", baseUrl)
+        }
+
         val dominantSignature = allSegments
             .groupingBy { urlSignature(it.url) }
             .eachCount()
             .maxByOrNull { it.value }
             ?.key
 
-        // 检测未加 #EXT-X-DISCONTINUITY 的文件名结构突变插播切片
         val suspectUrls = mutableSetOf<String>()
         val dominantShape = allSegments
             .groupingBy { nameShape(it.url) }
@@ -145,15 +176,27 @@ object M3u8AdCleaner {
             }
         }
 
+        val diagBuilder = StringBuilder()
+        diagBuilder.appendLine("--- 分段概览(共${groups.size}段) ---")
+
         val keptGroups = mutableListOf<SegmentGroup>()
+        var accSec = 0.0
         for ((index, group) in groups.withIndex()) {
+            val groupStartSec = accSec.toInt()
+            val groupDurSec = group.totalDuration.toInt()
+            accSec += group.totalDuration
+
+            var regexHitCount = 0
+            var shapeHitCount = 0
             val filteredSegments = group.segments.filterNot { seg ->
-                seg.url in suspectUrls || rule.urlBlacklistRegex.any { it.containsMatchIn(seg.url) }
+                val hitShape = seg.url in suspectUrls
+                val hitRegex = rule.urlBlacklistRegex.any { it.containsMatchIn(seg.url) }
+                if (hitShape) shapeHitCount++
+                if (hitRegex) regexHitCount++
+                hitShape || hitRegex
             }.toMutableList()
 
-            if (filteredSegments.isEmpty()) continue
-
-            val isAdGroup = if (rule.enableDiscontinuityFilter && groups.size > 1) {
+            val isAdGroup = if (filteredSegments.isNotEmpty() && rule.enableDiscontinuityFilter && groups.size > 1) {
                 val isShortGroup = group.totalDuration <= rule.maxAdGroupDurationSec
                 val groupSig = urlSignature(filteredSegments.first().url)
                 val isDifferentSource = dominantSignature != null && groupSig != dominantSignature
@@ -167,12 +210,38 @@ object M3u8AdCleaner {
                 false
             }
 
-            if (!isAdGroup) {
+            if (index < 15) {
+                val firstFile = group.segments.first().url.substringAfterLast("/").take(28)
+                val status = when {
+                    filteredSegments.isEmpty() -> "全删(正则$regexHitCount/突变$shapeHitCount)"
+                    isAdGroup -> "删短段"
+                    else -> "保留(正则删$regexHitCount/突变删$shapeHitCount)"
+                }
+                diagBuilder.appendLine("G$index[@${groupStartSec}s,${groupDurSec}s,${group.segments.size}片] $status | $firstFile")
+            }
+
+            if (filteredSegments.isNotEmpty() && !isAdGroup) {
                 keptGroups.add(SegmentGroup(filteredSegments))
             }
         }
 
-        if (keptGroups.isEmpty()) return content
+        diagBuilder.appendLine("--- 10分钟附近切片 ---")
+        var tSec = 0.0
+        groups.forEachIndexed { gIdx, g ->
+            g.segments.forEach { s ->
+                val startSec = tSec
+                tSec += s.durationSec
+                if (tSec >= 570.0 && startSec <= 645.0) {
+                    diagBuilder.appendLine(
+                        "G$gIdx(${startSec.toInt()}s,+${s.durationSec}s) ${s.url.substringAfterLast("/")}"
+                    )
+                }
+            }
+        }
+
+        if (keptGroups.isEmpty()) {
+            return CleanReport(content, allSegments.size, allSegments.size, groups.size, diagBuilder.toString(), baseUrl)
+        }
 
         val sb = StringBuilder()
         headerLines.forEach { sb.appendLine(it) }
@@ -207,7 +276,8 @@ object M3u8AdCleaner {
         if (hasEndList) {
             sb.appendLine("#EXT-X-ENDLIST")
         }
-        return sb.toString()
+        val keptCount = keptGroups.sumOf { it.segments.size }
+        return CleanReport(sb.toString(), allSegments.size, keptCount, groups.size, diagBuilder.toString(), baseUrl)
     }
 
     private fun pickBestVariantUrl(baseUrl: String, masterContent: String): String? {
@@ -271,30 +341,46 @@ object M3u8AdCleaner {
         return "$isAllDigits-$lenBucket"
     }
 
-    private fun httpGetText(urlStr: String, headers: Map<String, String>): Pair<String, String>? {
-        var conn: HttpURLConnection? = null
-        return runCatching {
-            val connection = (URL(urlStr).openConnection() as HttpURLConnection).apply {
-                connectTimeout = 8000
-                readTimeout = 8000
-                instanceFollowRedirects = true
-                requestMethod = "GET"
-                setRequestProperty(
-                    "User-Agent",
-                    headers["User-Agent"] ?: "Mozilla/5.0 (Linux; Android 13) AppleWebKit/537.36"
-                )
-                headers.forEach { (k, v) -> setRequestProperty(k, v) }
+    private fun httpGetTextWithRedirects(
+        urlStr: String,
+        headers: Map<String, String>
+    ): Triple<String?, String?, String> {
+        var currentUrl = urlStr
+        for (hop in 0..5) {
+            var conn: HttpURLConnection? = null
+            try {
+                val connection = (URL(currentUrl).openConnection() as HttpURLConnection).apply {
+                    connectTimeout = 8000
+                    readTimeout = 8000
+                    instanceFollowRedirects = false
+                    requestMethod = "GET"
+                    setRequestProperty(
+                        "User-Agent",
+                        headers["User-Agent"] ?: "Mozilla/5.0 (Linux; Android 13) AppleWebKit/537.36"
+                    )
+                    headers.forEach { (k, v) -> setRequestProperty(k, v) }
+                }
+                conn = connection
+                val code = connection.responseCode
+                if (code in listOf(301, 302, 303, 307, 308)) {
+                    val loc = connection.getHeaderField("Location")
+                        ?: return Triple(null, null, "重定向缺少Location")
+                    currentUrl = resolveUrl(currentUrl, loc)
+                    continue
+                }
+                if (code !in 200..299) {
+                    return Triple(null, null, "HTTP $code")
+                }
+                val text = BufferedReader(InputStreamReader(connection.inputStream, Charsets.UTF_8)).use {
+                    it.readText()
+                }
+                return Triple(currentUrl, text, "OK")
+            } catch (e: Exception) {
+                return Triple(null, null, "${e.javaClass.simpleName}: ${e.message}")
+            } finally {
+                conn?.disconnect()
             }
-            conn = connection
-            val code = connection.responseCode
-            if (code !in 200..299) return null
-            val finalUrl = connection.url.toString()
-            val text = BufferedReader(InputStreamReader(connection.inputStream, Charsets.UTF_8)).use {
-                it.readText()
-            }
-            finalUrl to text
-        }.also {
-            conn?.disconnect()
-        }.getOrNull()
+        }
+        return Triple(null, null, "重定向超过5次")
     }
 }
