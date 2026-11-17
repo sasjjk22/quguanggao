@@ -7,7 +7,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -18,11 +18,8 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-
       - name: Build Dex Jar
-        run: ./gradlew jar
+        run: .\gradlew.bat jar
 
       - name: Upload Jar Artifact
         uses: actions/upload-artifact@v4
