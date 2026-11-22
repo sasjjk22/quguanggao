@@ -25,8 +25,14 @@ jobs:
           java-version: '17'
           distribution: 'temurin'
 
+      - name: Configure JDK 8 Path
+        shell: pwsh
+        run: |
+          $p = "${{ steps.jdk8.outputs.path }}".Replace('\', '/')
+          Add-Content -Path gradle.properties -Value "`norg.gradle.java.installations.paths=$p"
+
       - name: Build Dex Jar
-        run: .\gradlew.bat jar -Porg.gradle.java.installations.paths="${{ steps.jdk8.outputs.path }}"
+        run: .\gradlew.bat jar
 
       - name: Upload Jar Artifact
         uses: actions/upload-artifact@v4
