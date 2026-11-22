@@ -60,17 +60,21 @@ object M3u8AdCleaner {
         if (depth > 3) return null to "嵌套层数过深"
 
         val (finalUrl, rawContent, errMsg) = httpGetTextWithRedirects(url, headers)
-        if (finalUrl == null || rawContent == null) return null to "拉取失败: $errMsg"
-        if (!rawContent.contains("#EXTM3U")) return null to "非M3U8内容: ${rawContent.take(80)}"
+        if (finalUrl == null || rawContent == null) return null to "回退直链($errMsg)"
+        if (!rawContent.contains("#EXTM3U")) return null to "回退直链(非M3U8)"
 
         if (rawContent.contains("#EXT-X-STREAM-INF")) {
             val subPlaylistUrl = pickBestVariantUrl(finalUrl, rawContent)
-                ?: return null to "主列表未找到子播放列表"
+                ?: return null to "回退直链(无子列表)"
             return fetchAndCleanWithReport(subPlaylistUrl, headers, rule, depth + 1)
         }
 
-        if (!rawContent.contains("#EXTINF")) return null to "未找到#EXTINF切片"
+        if (!rawContent.contains("#EXTINF")) return null to "回退直链(无切片)"
         val report = cleanMediaPlaylistWithReport(finalUrl, rawContent, rule)
+        // 修复1：如果没洗出有效切片，返回 null 自动回退原始直链，绝不把相对路径喂给本地代理
+        if (report.keptSegCount <= 0 || report.cleanedContent.isBlank()) {
+            return null to "回退直链(切片为空)"
+        }
         return report to "清洗成功: ${report.rawSegCount}片->${report.keptSegCount}片(分段:${report.groupCount})"
     }
 
@@ -145,7 +149,7 @@ object M3u8AdCleaner {
 
         val allSegments = groups.flatMap { it.segments }
         if (allSegments.isEmpty()) {
-            return CleanReport(content, 0, 0, 0, "无切片", baseUrl)
+            return CleanReport("", 0, 0, 0, "无切片", baseUrl)
         }
 
         val dominantSignature = allSegments
@@ -201,13 +205,15 @@ object M3u8AdCleaner {
                 val isShortGroup = group.totalDuration <= rule.maxAdGroupDurationSec
                 val groupSig = urlSignature(filteredSegments.first().url)
                 val isDifferentSource = dominantSignature != null && groupSig != dominantSignature
-                val isNormalAdLayout = groups.size in 2..8
-                val isPreRollAd = (index == 0 && maxGroupDuration >= 180.0)
+                val isNormalAdLayout = groups.size in 2..12
+                // 修复2：兼容 40~180 秒的短剧片头/片尾插播广告，不再只拦 180 秒以上长片
+                val isPreRollAd = (index == 0 && maxGroupDuration >= 40.0 && maxGroupDuration > group.totalDuration * 1.3)
+                val isPostRollAd = (index == groups.size - 1 && maxGroupDuration >= 40.0 && maxGroupDuration > group.totalDuration * 1.5)
                 val isMidRollAd = index in 1 until (groups.size - 1)
 
                 isShortGroup && (
                     isDifferentSource ||
-                        (isNormalAdLayout && (isPreRollAd || isMidRollAd))
+                        (isNormalAdLayout && (isPreRollAd || isMidRollAd || isPostRollAd))
                     )
             } else {
                 false
@@ -243,7 +249,7 @@ object M3u8AdCleaner {
         }
 
         if (keptGroups.isEmpty()) {
-            return CleanReport(content, allSegments.size, allSegments.size, groups.size, diagBuilder.toString(), baseUrl)
+            return CleanReport("", allSegments.size, 0, groups.size, diagBuilder.toString(), baseUrl)
         }
 
         val sb = StringBuilder()
@@ -352,15 +358,20 @@ object M3u8AdCleaner {
         for (hop in 0..5) {
             var conn: HttpURLConnection? = null
             try {
-                val connection = (URL(currentUrl).openConnection() as HttpURLConnection).apply {
-                    connectTimeout = 8000
-                    readTimeout = 8000
+                val parsed = URL(currentUrl)
+                val connection = (parsed.openConnection() as HttpURLConnection).apply {
+                    // 修复3：缩短超时避免卡死，并自动补全目标 CDN 的 Referer
+                    connectTimeout = 4000
+                    readTimeout = 4500
                     instanceFollowRedirects = false
                     requestMethod = "GET"
                     setRequestProperty(
                         "User-Agent",
                         headers["User-Agent"] ?: "Mozilla/5.0 (Linux; Android 13) AppleWebKit/537.36"
                     )
+                    if (!headers.containsKey("Referer")) {
+                        setRequestProperty("Referer", "${parsed.protocol}://${parsed.authority}/")
+                    }
                     headers.forEach { (k, v) -> setRequestProperty(k, v) }
                 }
                 conn = connection
