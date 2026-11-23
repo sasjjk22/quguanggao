@@ -8,36 +8,36 @@
 
 | 站点名称 | ID | 延迟 | M3U8体检结果 | 播放CDN域名 | 状态 |
 |---|---|---|---|---|---|
-| 光速资源 | `guangsuapi` | 67ms | 🟢 结构极净(单段无插播) | `v.gsuus.com` | ✅ 已收入 |
-| 极速资源网 | `jszyapi` | 112ms | 🟢 结构极净(单段无插播) | `vv.jisuzyv.com` | ✅ 已收入 |
-| 虎牙资源网 | `huyaapi` | 117ms | 🟢 结构极净(单段无插播) | `1080p.huyall.com` | ✅ 已收入 |
-| 金鹰资源网 | `jyzyapi` | 162ms | 🟢 结构极净(单段无插播) | `hd.kuktxu.com` | ✅ 已收入 |
-| 红牛资源网 | `hongniuzy2` | 177ms | 🟢 结构极净(单段无插播) | `hn.bfvvs.com` | ✅ 已收入 |
-| 新浪资源 | `xinlangapi` | 189ms | 🟢 结构极净(单段无插播) | `play.xluuss.com` | ✅ 已收入 |
-| 豪华资源网 | `hhzyapi` | 269ms | 🟢 结构极净(单段无插播) | `play.hhuus.com` | ✅ 已收入 |
-| 爱坤资源 | `ikunzyapi` | 198ms | 🟡 含可去插播(分段6,短段3) | `bfikuncdn.com` | ✅ 已收入 |
-| 樱花资源 | `apiyhzy` | 296ms | 🟡 含可去插播(分段2,短段1) | `vod12.wgslsw.com` | ✅ 已收入 |
-| 360资源 | `360zy` | 1362ms | 🟡 含可去插播(分段8,短段4) | `vod1.maowushi.com` | ✅ 已收入 |
-| 无尽资源网 | `wujinapi` | 201ms | ⚠️ 被拦截/报错(HTTP 403) | `-` | ✅ 已收入 |
-| 最大资源网 | `zuidapi` | 267ms | ⚠️ 被拦截/报错(HTTP 403) | `-` | ✅ 已收入 |
-| OK资源 | `okzyw` | 317ms | ⚠️ 被拦截/报错(HTTP 403) | `-` | ✅ 已收入 |
-| 天涯资源网 | `tyyszyapi` | 319ms | ⚠️ 连接失败(HTTPError) | `-` | ✅ 已收入 |
-| 索尼资源 | `suoniapi` | 331ms | ⚠️ 被拦截/报错(HTTP 403) | `-` | ✅ 已收入 |
-| 鸭鸭资源网 | `yayazyapi` | 336ms | ⚠️ 被拦截/报错(HTTP 403) | `-` | ✅ 已收入 |
-| 快车资源 | `kuaichezy` | 400ms | ⚠️ 被拦截/报错(HTTP 403) | `-` | ✅ 已收入 |
-| 淘片资源 | `taopianzy` | 732ms | ⚠️ 被拦截/报错(HTTP 403) | `-` | ✅ 已收入 |
-| 猫眼资源网 | `maoyanapi` | 750ms | ⚠️ 非标准M3U8 | `https://www.18xav.cc/20261030/VPwem6ip/index.m3u8` | ✅ 已收入 |
-| 百度资源 | `apibdzy` | 1341ms | ⚠️ 被拦截/报错(HTTP 403) | `-` | ✅ 已收入 |
-| U酷资源 | `ukuapi88` | 1390ms | ⚠️ 被拦截/报错(HTTP 403) | `-` | ✅ 已收入 |
-| 暴风资源 | `bfzyapi` | 1464ms | ⚠️ 被拦截/报错(HTTP 404) | `-` | ✅ 已收入 |
-| 优质资源网 | `yzzy-api` | 1912ms | ⚠️ 被拦截/报错(HTTP 403) | `-` | ✅ 已收入 |
-| 量子资源网 | `lziapi` | 2021ms | ⚠️ 被拦截/报错(HTTP 404) | `-` | ✅ 已收入 |
-| 天堂资源网 | `dyttzyapi` | 2250ms | ⚠️ 被拦截/报错(HTTP 403) | `-` | ✅ 已收入 |
-| 非凡资源 | `ffzyapi` | 2386ms | ⚠️ 被拦截/报错(HTTP 403) | `-` | ✅ 已收入 |
-| 果脯资源网 | `gfzywapi` | 55ms | 💀 域名已失效(DNS解析失败) | `-` | ❌ 已剔除 |
-| 豆瓣资源 | `dbzy5` | 65ms | 💀 域名已失效(DNS解析失败) | `-` | ❌ 已剔除 |
-| 卧龙资源 | `wolongzy` | 92ms | 💀 域名已失效(DNS解析失败) | `-` | ❌ 已剔除 |
-| 茅台资源网 | `maotaizy` | 1892ms | 💀 域名已失效(DNS解析失败) | `-` | ❌ 已剔除 |
-| 王者资源 | `wsyzyapi` | 232ms | 🔴 高危混淆(分段139个) | `v14.wsyzym3u8.com` | ❌ 已剔除 |
-| 西瓜资源网 | `xgzyapi` | 668ms | 🔴 高危混淆(分段36个) | `vip20.jimxtc.com` | ❌ 已剔除 |
-| 如意资源 | `rycjapi` | 1428ms | 🔴 高危混淆(分段85个) | `svip.ryiplay18.com` | ❌ 已剔除 |
+| 金鹰资源网 | `jyzyapi` | 73ms | 🟢 结构极净(单段无插播) | `hd.kuktxu.com` | ✅ 已收入 |
+| 红牛资源网 | `hongniuzy2` | 288ms | 🟢 结构极净(单段无插播) | `hn.bfvvs.com` | ✅ 已收入 |
+| 樱花资源 | `apiyhzy` | 399ms | 🟡 含可去插播(分段2,短段1) | `vod12.wgslsw.com` | ✅ 已收入 |
+| 爱坤资源 | `ikunzyapi` | 408ms | 🟡 含可去插播(分段4,短段2) | `bfikuncdn.com` | ✅ 已收入 |
+| 暴风资源 | `bfzyapi` | 905ms | 🟡 含可去插播(分段3,短段1) | `v.fengbao14.com` | ✅ 已收入 |
+| 360资源 | `360zy` | 3172ms | 🟡 含可去插播(分段4,短段2) | `vod1.maowushi.com` | ✅ 已收入 |
+| 光速资源 | `guangsuapi` | 372ms | ⚠️ 连接失败(HTTPError) | `-` | ✅ 已收入 |
+| 无尽资源网 | `wujinapi` | 417ms | ⚠️ 被拦截/报错(HTTP 403) | `-` | ✅ 已收入 |
+| 极速资源网 | `jszyapi` | 427ms | ⚠️ 连接失败(HTTPError) | `-` | ✅ 已收入 |
+| 虎牙资源网 | `huyaapi` | 455ms | ⚠️ 连接失败(HTTPError) | `-` | ✅ 已收入 |
+| 最大资源网 | `zuidapi` | 456ms | ⚠️ 被拦截/报错(HTTP 403) | `-` | ✅ 已收入 |
+| 天涯资源网 | `tyyszyapi` | 468ms | ⚠️ 连接失败(HTTPError) | `-` | ✅ 已收入 |
+| 豪华资源网 | `hhzyapi` | 514ms | ⚠️ 连接失败(HTTPError) | `-` | ✅ 已收入 |
+| OK资源 | `okzyw` | 550ms | ⚠️ 被拦截/报错(HTTP 403) | `-` | ✅ 已收入 |
+| 新浪资源 | `xinlangapi` | 722ms | ⚠️ 连接失败(HTTPError) | `-` | ✅ 已收入 |
+| 索尼资源 | `suoniapi` | 906ms | ⚠️ 被拦截/报错(HTTP 403) | `-` | ✅ 已收入 |
+| 快车资源 | `kuaichezy` | 952ms | ⚠️ 被拦截/报错(HTTP 403) | `-` | ✅ 已收入 |
+| 淘片资源 | `taopianzy` | 1002ms | ⚠️ 被拦截/报错(HTTP 403) | `-` | ✅ 已收入 |
+| 鸭鸭资源网 | `yayazyapi` | 1129ms | ⚠️ 被拦截/报错(HTTP 403) | `-` | ✅ 已收入 |
+| 百度资源 | `apibdzy` | 1472ms | ⚠️ 被拦截/报错(HTTP 403) | `-` | ✅ 已收入 |
+| U酷资源 | `ukuapi88` | 1741ms | ⚠️ 被拦截/报错(HTTP 403) | `-` | ✅ 已收入 |
+| 优质资源网 | `yzzy-api` | 2507ms | ⚠️ 被拦截/报错(HTTP 403) | `-` | ✅ 已收入 |
+| 天堂资源网 | `dyttzyapi` | 2602ms | ⚠️ 被拦截/报错(HTTP 403) | `-` | ✅ 已收入 |
+| 量子资源网 | `lziapi` | 2640ms | ⚠️ 被拦截/报错(HTTP 404) | `-` | ✅ 已收入 |
+| 如意资源 | `rycjapi` | 2919ms | ⚠️ 被拦截/报错(HTTP 404) | `-` | ✅ 已收入 |
+| 非凡资源 | `ffzyapi` | 3632ms | ⚠️ 被拦截/报错(HTTP 403) | `-` | ✅ 已收入 |
+| 果脯资源网 | `gfzywapi` | 41ms | 💀 域名已失效(DNS解析失败) | `-` | ❌ 已剔除 |
+| 卧龙资源 | `wolongzy` | 82ms | 💀 域名已失效(DNS解析失败) | `-` | ❌ 已剔除 |
+| 豆瓣资源 | `dbzy5` | 112ms | 💀 域名已失效(DNS解析失败) | `-` | ❌ 已剔除 |
+| 猫眼资源网 | `maoyanapi` | 1192ms | 💀 域名已失效(DNS解析失败) | `-` | ❌ 已剔除 |
+| 茅台资源网 | `maotaizy` | 2070ms | 💀 域名已失效(DNS解析失败) | `-` | ❌ 已剔除 |
+| 王者资源 | `wsyzyapi` | 327ms | 🔴 高危混淆(分段71个) | `v13.wsyzym3u8.com` | ❌ 已剔除 |
+| 西瓜资源网 | `xgzyapi` | 666ms | 🔴 高危混淆(分段160个) | `vip17.jimxtc.com` | ❌ 已剔除 |
